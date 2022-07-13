@@ -1,0 +1,24 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Documents</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+	<div class="pd-left-right16" >
+        <div class="list-box mt16" *ngFor="let data of document_list">
+            
+           
+           
+            <div class="lower">
+                <p>{{data.title}} </p>
+                <div  class="see_more">
+                    <p id="foo" (click)="openDocument(image_url+data.document_name,data.type,data.document_name)">VIEW</p>
+                    <!-- <p (click)="see_more_button = !see_more_button">See More</p> -->
+                    
+                </div>
+            </div>
+        </div>  
+    </div>
+</ion-content>

@@ -1,0 +1,95 @@
+page-followup-list {
+    
+    .top-items {
+        margin: -10px -10px 10px -10px;
+        padding: 10px;
+        border-bottom: 1px dashed #ccc;
+        display: flex;
+        align-items: center;
+        
+        .tag-info{
+            margin-left: auto;
+            
+            button{
+                background: #64104b;
+                color: #ffffff;
+                border-radius: 6px;
+                
+                i{
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    
+    ul.top-filter {
+        display: flex;
+        align-items: center;
+        
+        li{
+            
+            padding: 0px 10px;
+            border-right: 2px solid #ccc;
+            
+            span{
+                font-size: 12px;
+                font-weight: 600;
+                color: #000d36;
+            }
+            p{
+                font-size: 11px;
+                color: #000d36;
+            }
+            
+            &:first-child{
+                padding-left: 0px;
+            }
+            
+            &:last-child{
+                padding-right: 0px;
+                border: 0px;
+            }
+        }
+    }
+    
+    
+    .filter-search{
+        display: flex;
+    }
+    
+    a {
+        &.date-pick {
+            width: 30px;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 30px;
+            background: #ffffff ;
+            margin-right: 16px ;
+            label {
+                position: relative;
+                overflow: hidden;
+                color: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                input {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    margin: 0px;
+                    padding: 0px;
+                    height: 24px;
+                    font-size: 999999px;
+                    opacity: 0;
+                    z-index: 1;
+                    width: 200px;
+                }
+                i {
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+    
+}

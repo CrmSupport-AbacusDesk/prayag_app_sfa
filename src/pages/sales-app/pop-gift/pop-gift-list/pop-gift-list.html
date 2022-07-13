@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title>Pop & Gift</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="nothing-here" *ngIf="!pop_list.length && load_data == '1'">
+      <div class="outer">
+          <div class="innear">
+              <img src="assets/imgs/no_found.svg" alt="">
+              <p>Data not Available</p>
+          </div>
+      </div>
+  </div>
+  <div class="pd-left-right16">
+      <div class="list-box mt16" *ngFor="let list of pop_list; let i=index">
+          <div class="upper">
+              <div class="left-date">
+                  <div class="date-section">
+                      <p>{{list.date_created | date:'d MMM y'}}</p>
+                      <p>Date Created</p>
+                  </div>
+              </div>
+              <div class="right-date" (click)="popOutgoing(list.pop_gift_id,list.item_name)">
+                  <button class="Pending"><p>Outgoing History</p></button>
+              </div>
+          </div>
+          <div class="mid">
+              <div class="content-info">
+                  <div class="left-info">
+                      <div class="circle">{{list.item_name.substring(0,1).toUpperCase()}}</div>
+                  </div>
+
+                  <div class="right-info">
+                      <p>{{list.item_name|titlecase}}</p>
+                      <p>Qty - {{list.stock_qty}}</p>
+                  </div>
+              </div>
+          </div>
+          <div class="lower" *ngIf="list.description !=''">
+              <p>Description</p>
+              <p>{{list.description}}</p>
+          </div>
+      </div>
+  </div>
+</ion-content>
+
+<div class="cus-fab" *ngIf="pop_list.length">
+  <button (click)="popGift()">
+      <i class="material-icons">add</i>
+  </button>
+</div>

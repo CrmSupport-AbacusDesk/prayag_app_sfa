@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <h1>Edit Travel Plan {{data.date_from | date:'EEEE, MMMM d, y'}}</h1>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="edit mt16">
+    <ion-list>
+      <ng-container>
+
+
+        <div class="radio-tab">
+          <ion-list radio-group [(ngModel)]="data.travel_type">
+
+            <ion-item>
+              <ion-label>Retailer</ion-label>
+              <ion-radio value="Retailer"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Other</ion-label>
+              <ion-radio value="Other"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <ion-item class="cs-normal-select mt16"*ngIf="data.travel_type!='Retailer'">
+          <ion-input placeholder="City" type="text" name="city" [(ngModel)]="data.city"></ion-input>
+
+        </ion-item>
+
+        <ion-item class="cs-normal-select mt16"*ngIf="data.travel_type=='Retailer'">
+          <ion-label>Beat Code</ion-label>
+          <ionic-selectable
+          item-content
+          [(ngModel)]="data.beat_code"
+          [items]="beatCodeList"
+          itemValueField="beat_code"
+          name="beat_code1"
+          value="beat_code"
+          itemTextField="beat_code1"
+          [canSearch]="true"
+          #selectComponent >
+      </ionic-selectable>
+          <!-- <ion-select placeholder="Beat Code" name="beatcode" [(ngModel)]="data.beat_code">
+            <ion-option value="{{row.beat_code}}" *ngFor="let row of beatCodeList">{{row.beat_code}}</ion-option>
+          </ion-select> -->
+        </ion-item>
+
+        <ion-item class="cs-textarea1 ">
+          <ion-label floating><span>Remark</span></ion-label>
+          <ion-textarea name="description" placeholder="Enter Description" [(ngModel)]="data.status_remark"></ion-textarea>
+        </ion-item>
+
+      </ng-container>
+
+    </ion-list>
+
+    <div class="mt16 mb16">
+      <button  class="capitalize" ion-button  round block  [disabled]="!data.travel_type   || !data.status_remark"
+        (click)="addToList()">Add To List</button>
+    </div>
+
+    
+
+        <!-- <table>
+          <tr>
+            <th>City</th>
+            <th>Type</th>
+            <th>Beat Code</th>
+            <th>Remark</th>
+          </tr>
+          <tr *ngFor="let row of planList">
+            <td>{{row.city}}</td>
+            <td>{{row.travel_type}}</td>
+            <td>{{row.beat_code}}</td>
+            <td>{{row.remark}}</td>
+          </tr>
+        </table>
+        -->
+
+        <div class="collapse-body padding0">
+
+          <table *ngIf="planList.length">
+            <tr>
+              <th class="w70">City</th>
+              <th class="w75">Beat Code</th>
+              <th class="w70">Visit Type</th>
+              <th style="border-right: 0px">Remark</th>
+              <th class="w40" style="border-left: 0px"></th>
+
+            </tr>
+            <tr *ngFor="let row of planList;let i = index">
+              <td>{{row.city}}</td>
+              <td>{{row.beat_code}}</td>
+              <td>{{row.travel_type}}</td>
+              <td style="border-right: 0px">{{row.status_remark}}
+                
+              </td>
+              <td class="w20" style="border-left: 0px">
+                <i (click)="removePlanList(i)" class="material-icons ">delete</i>
+              </td>
+
+            </tr>
+          </table>
+
+          <div class="padding10" *ngIf="planList.length==0">
+            <span>No Plan Exist</span>
+
+          </div>
+        </div>
+
+
+    <div class="mt16">
+      <button ion-button class="cs-btn" [disabled]="planList.length==0" type="submit"
+        (click)="savePlanList()">Save</button>
+    </div>
+
+  </div>
+
+
+
+  <div class="pd-left-right16">
+
+
+  </div>
+
+  <div class="pd-left-right16">
+
+
+    <div class="align-btn">
+
+    </div>
+
+
+  </div>
+
+
+</ion-content>

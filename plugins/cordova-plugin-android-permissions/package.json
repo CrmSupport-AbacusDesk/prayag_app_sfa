@@ -1,0 +1,65 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-android-permissions@1.1.3",
+      "D:\\KEI\\KEI APP"
+    ]
+  ],
+  "_from": "cordova-plugin-android-permissions@1.1.3",
+  "_id": "cordova-plugin-android-permissions@1.1.3",
+  "_inBundle": false,
+  "_integrity": "sha512-tA+iZri+WA0Ys/8U2E8BeSBoNbomyn51rrt3k3S5vzG7Hx/3tnKKeKzbL607nnlRMfOFec546UYa+xBXKkiEtA==",
+  "_location": "/cordova-plugin-android-permissions",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-android-permissions@1.1.3",
+    "name": "cordova-plugin-android-permissions",
+    "escapedName": "cordova-plugin-android-permissions",
+    "rawSpec": "1.1.3",
+    "saveSpec": null,
+    "fetchSpec": "1.1.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/cordova-plugin-android-permissions/-/cordova-plugin-android-permissions-1.1.3.tgz",
+  "_spec": "1.1.3",
+  "_where": "D:\\KEI\\KEI APP",
+  "author": {
+    "name": "Jason Yang"
+  },
+  "bugs": {
+    "url": "https://github.com/NeoLSN/cordova-plugin-android-permission/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-android-permissions",
+    "platforms": [
+      "android",
+      "ios",
+      "browser"
+    ]
+  },
+  "description": "Android 6.0 permissions check.",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=5.0.0"
+    }
+  ],
+  "homepage": "https://github.com/NeoLSN/cordova-plugin-android-permission#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-browser",
+    "cordova-ios"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-android-permissions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeoLSN/cordova-plugin-android-permission.git"
+  },
+  "version": "1.1.3"
+}

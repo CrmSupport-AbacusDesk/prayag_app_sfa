@@ -1,0 +1,76 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Add Followup</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <form name="f" #f="ngForm" (ngSubmit)="f.valid && submit()">
+        <div class="edit">
+            <ion-list>
+                
+                <ion-item class="cs-normal-select mt15 mb0" [ngClass]="{'cs-error':f.submitted && lead_type?.invalid}">
+                    <ion-label><span>Lead Type</span></ion-label>
+                    <ion-select name="lead_type" #lead_type="ngModel" [(ngModel)]="form.lead_type" (ngModelChange)="get_assign_dr(form.lead_type)">
+                        <ion-option value="3">Retailer</ion-option>
+                        <ion-option value="1">Distributor/Dealer</ion-option>
+                        <ion-option value="5">End User</ion-option>
+                        <ion-option value="9">Project</ion-option>
+                    </ion-select>
+                </ion-item>
+                <p  *ngIf="f.submitted && lead_type?.invalid" class="error-line">Select Type Is Required</p>
+                
+                <ion-item class="cs-select mt15 mb0" [ngClass]="{'cs-error':f.submitted && dr_id?.invalid}" *ngIf="form.lead_type == '3' || form.lead_type == '1' || form.lead_type == '5' || form.lead_type == '9'">
+                    <ion-label *ngIf="form.lead_type == '3'"><span>Select Retailer</span></ion-label>
+                    <ion-label *ngIf="form.lead_type == '1'"><span>Select Distributor/Dealer</span></ion-label>
+                    <ion-label *ngIf="form.lead_type == '5'"><span>Select End User</span></ion-label>
+                    <ion-label *ngIf="form.lead_type == '9'"><span>Select Project</span></ion-label>
+                    <ionic-selectable
+                    item-content 
+                    [(ngModel)]="form.dr_id"
+                    [items]="type_list"
+                    itemValueField="id"
+                    name="company_name"
+                    value="company_name"
+                    itemTextField="company_name"
+                    [canSearch]="true"
+                    (onChange)="test(form.dr_id)"
+                    #selectComponent>
+                </ionic-selectable>
+            </ion-item>
+            
+            <p  *ngIf="f.submitted && dr_id?.invalid" class="error-line">Select Type Is Required</p>
+            
+            <ion-item class="cs-normal-select mt16 mb0" [ngClass]="{'cs-error':f.submitted && followup_type?.invalid}">
+                <ion-label><span>Followup Type</span></ion-label>
+                <ion-select name="followup_type"  #followup_type="ngModel" [(ngModel)]="form.followup_type" required>
+                    <ion-option value="Meeting">Meeting</ion-option>
+                    <ion-option value="Call">Call</ion-option>
+                    <ion-option value="SMS">SMS</ion-option>
+                    <ion-option value="Email">Email</ion-option>
+                </ion-select>
+            </ion-item>
+            <p  *ngIf="f.submitted && followup_type?.invalid" class="error-line">Followup Type Is Required</p>
+            
+            
+            <ion-item [ngClass]="{'cs-error':f.submitted && followup_date?.invalid}" >
+                <ion-label floating><span>Next Followup Date *</span></ion-label>
+                <ion-datetime  placeholder ="Next Followup Date" name="followup_date" min="{{today_date}}" [(ngModel)]="form.followup_date" #followup_date="ngModel" required></ion-datetime>
+            </ion-item>
+            
+            <p *ngIf="f.submitted && followup_date?.invalid"  class="error-line relative">Followup Date is Required!</p>
+            
+            <ion-item class="cs-textarea1" [ngClass]="{'cs-error':f.submitted && description?.invalid}">
+                <ion-label floating><span>Description </span></ion-label>
+                <ion-textarea  placeholder="Enter Description"  type="text" name="description" #description="ngModel" [(ngModel)]="form.description" required></ion-textarea>
+            </ion-item>
+            <p  *ngIf="f.submitted && description?.invalid" class="error-line">Description Is Invalid</p>
+            
+        </ion-list>
+    </div>
+    
+    <div class="padding16">
+        <button ion-button class="cs-btn">Save</button>
+    </div>		  
+</form>
+</ion-content>

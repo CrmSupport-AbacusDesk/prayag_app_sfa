@@ -1,0 +1,196 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            <h1>Add Order </h1>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div class="edit mt16">
+        <ion-list>
+            <ng-container *ngIf="userType!='OFFICE' && disableSelect==false">
+
+                <ion-item  class="cs-normal-select mt16"  >
+                    <ion-label>Select type</ion-label>
+                    <ion-select  placeholder="Select Type" name="networkType"  [(ngModel)]="data.networkType" (ngModelChange)="get_network_list(data.networkType)" [disabled]="(disableSelectFromCheckin == true)">
+                        <ion-option  *ngIf="drtype=='Primary'" value="1">Distributor</ion-option>
+                        <ion-option *ngIf="drtype=='Primary'" value="2"> Dealer</ion-option>
+                        <ion-option *ngIf="drtype=='Primary'" value="12"> Direct Customer</ion-option>
+
+                        <ion-option *ngIf="drtype=='Secondary'" value="3">Retailer</ion-option>
+                      
+
+
+                    </ion-select>
+                </ion-item>
+
+            </ng-container>
+
+        </ion-list>
+
+        <ion-list *ngIf="data.networkType" >
+
+            <ion-item class="cs-select mt16" >
+                <ion-label *ngIf="data.networkType == '1'">Distributor</ion-label>
+                <ion-label *ngIf="data.networkType == '3'">Retailer</ion-label>
+                <ion-label *ngIf="data.networkType == '2'">Dealer</ion-label>
+                <ion-label *ngIf="data.networkType == '12'">Direct Customer</ion-label>
+
+               
+
+
+                <ionic-selectable
+                item-content
+                [(ngModel)]="data.type_name"
+                [items]="distributor_network_list"
+                itemValueField="id"
+                name="name"
+                value="company_name"
+                itemTextField="company_name"
+				(onSearch)="test66($event,data.networkType)"
+
+                [canSearch]="true"
+                #selectComponent (ngModelChange)="selectdistributor(data.type_name)" [disabled]="(disableSelect == true || disableSelectFromCheckin == true)">
+            </ionic-selectable>
+        </ion-item>
+
+
+        <!-- <ion-item class="cs-selectable mt16" *ngIf="data.networkType =='3'">
+            <ion-label><span>Select Distributor</span></ion-label>
+            <ionic-selectable
+            item-content
+            [(ngModel)]="data.delivery_from"
+            [items]="distributor_network_list"
+            itemValueField="assign_distributor_id"
+            itemTextField="assign_distributor"
+            name="name"
+            value="id"
+            [canSearch]="true"
+            #distributorSelectable (ngModelChange)="test(data.delivery_from)">
+
+        </ionic-selectable>
+    </ion-item>	 -->
+
+    <ion-item class="cs-selectable mt16" *ngIf="data.networkType == '3'&&data.type_name">
+        <ion-label><span>Select Distributor</span></ion-label>
+        <ionic-selectable
+        item-content
+        [(ngModel)]="data.delivery_from"
+        [items]="distributor"
+        itemValueField="id"
+        itemTextField="company_name"
+        name="name"
+        value="id"
+        [canSearch]="true"
+        #distributorSelectable (ngModelChange)="test(data.delivery_from)">
+
+    </ionic-selectable>
+</ion-item>
+  
+<ion-item  *ngIf="data.type_name">
+    <ion-label floating><span>Item Description</span></ion-label>
+
+    <ion-input type="text"  name="description" placeholder="Enter Item Description" #description="ngModel" [(ngModel)]="data.description" (ngModelChange)="addToListButton=true " required ></ion-input>
+</ion-item>
+
+        <ion-item  *ngIf="data.type_name">
+        <ion-label floating><span>Qty</span></ion-label>
+
+            <ion-input type="number"  name="qty" placeholder="Enter Qty" #qty="ngModel" [(ngModel)]="data.qty" (ngModelChange)="addToListButton=true " required ></ion-input>
+        </ion-item>
+        <ion-item  *ngIf="data.type_name">
+        <ion-label floating><span>Amount</span></ion-label>
+
+            <ion-input type="number"  name="amount" placeholder="Enter Amount" #amount="ngModel" [(ngModel)]="data.amount" (ngModelChange)="addToListButton=true " required ></ion-input>
+        </ion-item>
+
+       
+
+      
+
+
+
+
+
+
+      <ng-container  *ngIf="data.networkType == '3'||data.networkType == '1'||data.networkType == '2'||data.networkType == '12'">
+        <button ion-button class="cs-btn" [disabled]=" !data.amount" (click)="addtolist2()" >Add </button>
+
+    </ng-container>
+   
+
+    </ion-list>
+
+
+    <!-- <div class="mt16" *ngIf="product_list.length" >
+        <button ion-button class="cs-btn" [disabled]="addToListButton" (click)="addToList()" >Add To List</button>
+    </div> -->
+
+
+
+
+    <div class="cs-heading1 pl0"*ngIf="new_add_list.length" >
+        <p>ORDER INFORMATION</p>
+    </div>
+
+    <div class="list-box mt10" *ngFor="let row of new_add_list;let i=index">
+        <div class="mid mt0">
+            <div class="content-info">
+                <div class="right-info">
+                    <p>Qty - {{row.qty}}</p>
+                </div>
+                
+            </div>
+            <div class="content-info">
+                <div class="right-info">
+                    <p>Amount - {{row.amount}}</p>
+                </div>
+                
+            </div>
+            <div class="tag-info">
+                <button ><i class="material-icons red-clr" (click)="listdelete(i)">delete_sweep</i></button>
+            </div>
+        </div>
+
+        <div class="three_boxes">
+            <div class="lower">
+                <p>Description</p>
+                <p>{{row.description}}</p>
+            </div>
+           
+        </div>
+      
+    </div>
+
+    
+    <div class="mt16"  *ngIf="new_add_list.length > 0">
+        <button ion-button class="cs-btn"  (click)="user_data.order_status='Pending';save_orderalert('submit');">Save Order</button>
+        <!-- <button ion-button class="cs-btn">Save</button> -->
+
+    </div>
+
+</div>
+
+
+
+<div class="pd-left-right16">
+
+
+</div>
+<div class="border-sepration" *ngIf="new_add_list.length"></div>
+
+
+<div class="pd-left-right16" >
+
+
+    <div class="align-btn">
+
+    </div>
+
+
+</div>
+
+
+</ion-content> 

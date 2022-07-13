@@ -1,0 +1,378 @@
+<ion-header [hidden]="true">
+    <ion-navbar>
+        <ion-title>Dashboard</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content style="background: #f4fbfb;">
+    
+    
+    <div class="dashboard_header">
+        <div class="csm_header">
+            <div class="logo"><img src="assets/imgs/prayag.png" alt=""></div>
+            <div class="buttons">
+                <div class="notification-btn">
+                    <button ion-button  (click)="announcementModal()">
+                        <ion-icon ios="ios-notifications" md="md-notifications" class="notification_icon"></ion-icon>
+                    </button>
+                    <p>{{announcementCount}}</p>
+                </div>
+                <button ion-button (click)="open_menu()">
+                    <ion-icon ios="ios-menu" md="md-menu" class="menu_icon"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </div>  
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh"  refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    <div class="em_info">
+        <div class="figure">
+            <div class="nnm">
+                <h1>Hi,  {{!user_data.name ? 'N/A' : user_data.name | titlecase}}</h1>
+                <p *ngIf="user_data.mobile">+91 {{user_data.mobile}}</p>
+            </div>
+            <div class="srt_button">
+                <button ion-button class="str" *ngIf="(last_attendence_data.start_time == '') && (last_attendence_data.stop_time == '' )" (click)="presentAlert1()">
+                    <div class="cs-left">
+                        <div class="icon"><img src="assets/imgs/wrk_time-start.svg" alt=""></div>
+                        <div class="timeclass">
+                            <!-- <p>Your Start Time</p> -->
+                <span>{{ time | date: 'hh:mm:ss a' }}</span>
+
+                            <!-- <p><span>00 : 00</span> <span>{{start_attend_time}}</span></p> -->
+                        </div>
+                    </div>
+                    <div class="cs-right"(click)="presentAlert1()">
+                        <div class="lb">Start Work Time</div>
+                    </div>
+                </button>
+                
+                <button ion-button class="stp" *ngIf="(last_attendence_data.stop_time == '0000-00-00 00:00:00') && (last_attendence_data.start_time != '0000-00-00 00:00:00' ) || (last_attendence_data.stop_time == '00:00:00')" (click)="presentAlert()">
+                    <div class="cs-left">
+                        <div class="icon"><img src="assets/imgs/wrk_time-end.svg" alt=""></div>
+                        <div class="timeclass">
+                            <p>Your Start Time</p>
+                            <p><span>{{start_attend_time}}</span></p>
+                        </div>
+                    </div>
+                    <div class="cs-right">
+                        <div class="lb">Stop Work Time</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="product-option  pt5">
+
+        <div class="main-box" (click)="goToTravel()">
+            <div class="product-box"style="background-color:blue">
+                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+            </div>
+            <div class="heading">
+                <img style="max-width:25%"src="assets/imgs/travel.png">
+                <h4>Travel Plan</h4>
+            </div>
+        </div>
+
+        <div class="main-box" (click)="goToExpense()">
+            <div class="product-box"style="background-color:red">
+                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+            </div>
+            <div class="heading">
+                <img style="max-width:25%"src="assets/imgs/expense.png">
+
+                <h4>Expenses</h4>
+            </div>
+        </div>
+
+        <div class="main-box" (click)="goToTeam()">
+            <div class="product-box"style="background-color:#ffbf00">
+                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+            </div>
+            <div class="heading">
+                <img style="max-width:25%"src="assets/imgs/leave.png">
+
+                <h4>Leaves</h4>
+            </div>
+        </div>
+      
+    </div>
+      <div class="target-column">
+        <div class="target-column-grid" >
+            <div class="taget-achievement"   >
+                <ion-card>
+                    <ion-card-header> Today Checkin Detail </ion-card-header>
+                    <ion-card-content>
+                      <canvas #doughnutCanvas></canvas>
+                    </ion-card-content>
+                  </ion-card>
+            </div>
+            <div class="taget-achievement"   >
+                <ion-card>
+                    <ion-card-header> Today Followup Detail </ion-card-header>
+                    <ion-card-content>
+                      <canvas #doughnutCanvas></canvas>
+                    </ion-card-content>
+                  </ion-card>
+            </div>
+           
+           
+        </div>
+    </div>
+    <div class="target-column">
+        <div class="target-column-grid" >
+            <div class="taget-achievement"  (click)="(targetVsAchievement.p_acheivement > 0) && (targetVsAchievement.primary_target > 0) ? viewAchievement('primary'):''"  >
+           
+            </div>
+           
+            <div class="taget-achievement" (click)="(targetVsAchievement.secondary_acheivement > 0) && (targetVsAchievement.secondary_target > 0) ?viewAchievement('secondary'): ''">
+                
+            </div>
+           
+        </div>
+    </div> -->
+    <ng-container *ngIf="user_data.user_type!='OFFICE'">
+        
+        <div class="product-option pt5">
+            
+            <div class="main-box"*ngFor="let row of networkType" >
+                <div class="product-box">
+                    <img src="assets/imgs/icon.png">
+                </div>
+                <div class="heading"  (click)="goToMainDistributorListPage(row.type)">
+                    <div class="count"><span style="width: 65%;
+                        border-radius: 10px;">{{row.count}}</span></div>
+                    <h4>{{row.module_name}}</h4>
+                </div>
+            </div>
+            
+            <!-- <div class="main-box" (click)="goToMainDistributorListPage(2)">
+                <div class="product-box">
+                    <img src="assets/imgs/cs-network/fabricator.svg">
+                </div>
+                <div class="heading">
+                    <div class="count"><span>{{total_direct_dealer.total_direct_dealer}}</span></div>
+                    <h4>Dealer</h4>
+                </div>
+            </div>
+            
+            <div class="main-box" (click)="goToMainDistributorListPage(3)">
+                <div class="product-box">
+                    <img src="assets/imgs/cs-network/architect.svg">
+                </div>
+                <div class="heading">
+                    <div class="count"><span>{{total_dealer.total_dealer}}</span></div>
+                    <h4>Retailer</h4>
+                </div>
+            </div>-->
+        </div> 
+        
+    </ng-container>
+    
+    <div padding class="pt10 pb0">
+        <ng-container *ngIf="today_checkin.today_checkin > 0">
+            
+            <div class="go-btn new mb16" (click)="goToCheckin()">
+                <div class="g-left">
+                    <p>{{today_checkin.today_checkin}}</p>
+                    <p>Today Check In</p>
+                </div>
+                <div class="g-right">
+                    <div class="g-content">
+                <p *ngIf="!(checkin_data != null)">Check In <strong>List</strong></p>
+                        <p *ngIf="checkin_data != null">Check In <strong>Detail</strong></p>
+                    </div>
+                    <div class="g-count">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <!-- <div  class="go-btn new mb16"  (click)="goToTeam()">
+            <div class="g-left">
+                <p>{{team_count}}</p>
+                <p>Total</p>
+            </div>
+            <div class="g-right">
+                <div class="g-content">
+                    <p>Team Report</p>
+                </div>
+                <div class="g-count">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                </div>
+            </div>
+        </div> -->
+        
+        <div class="go-btn new mb16" (click)="goToFollowup()">
+            <div class="g-left">
+                <p>{{today_followup.today_followup}}</p>
+                <p>Today Followup</p>
+            </div>
+            <div class="g-right">
+                <div class="g-content">
+                    <p>Followup List</p>
+                </div>
+                <div class="g-count">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <ng-container *ngIf="today_checkin.today_checkin == 0">
+            
+           
+
+            <div class="go-btn new mb16" (click)="start_visit() ">
+                <div class="g-left">
+                    <p>{{today_checkin.today_checkin}}</p>
+                    <p>Today Check In</p>
+                </div>
+                <div class="g-right">
+                    <div class="g-content">
+                        <p>Create Check In</p>
+                    </div>
+                    <div class="g-count">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        
+      
+        
+        <div class="go-btn new mb16" (click)="goToOrders('Secondary')">
+            <div class="g-left">
+                <p>{{total_secondary_order.total_secondary_order}}</p>
+                <p>Total Order</p>
+            </div>
+            <div class="g-right">
+                <div class="g-content">
+                    <p>Secondary Order</p>
+                    <!-- <p>&#x20B9; <span>{{total_secondary_order.secondary_order_sum |number:'1.0-0'}}/-</span></p> -->
+                </div>
+                <div class="g-count">
+                    <i class="material-icons">keyboard_arrow_right</i>
+                </div>
+            </div>
+        </div>
+        
+        <ng-container *ngIf="user_data.user_type!='OFFICE'">
+            
+            <div class="go-btn new mb16" (click)="goToOrders('Primary')">
+                <div class="g-left">
+                    <p>{{total_primary_order.total_primary_order}}</p>
+                    <p>Total Order</p>
+                </div>
+                <div class="g-right">
+                    <div class="g-content">
+                        <p>Primary Order</p>
+                        <!-- <p>&#x20B9; <span>{{total_primary_order.primary_order_sum |number:'1.0-0'}}/-</span></p> -->
+                    </div>
+                    <div class="g-count">
+                        <i class="material-icons">keyboard_arrow_right</i>
+                    </div>
+                </div>
+            </div>
+            
+        </ng-container>
+    </div>
+    
+    <!-- <div class="target-column">
+        <div class="heading">Target V/S Achievement</div>
+        <div class="target-column-grid" >
+            <div class="taget-achievement"  (click)="(targetVsAchievement.p_acheivement > 0) && (targetVsAchievement.primary_target > 0) ? viewAchievement('primary'):''"  >
+            <div class="taget_vs_achievement" >
+                    <p class="green-text">&#x20B9; {{targetVsAchievement.p_acheivement| number : '1.2-2' }}</p>
+                    <span>Primary Achievement</span>
+                </div>
+                <div class="vs">
+                    V / S
+                </div>
+                <div class="taget_vs_achievement">
+                    <p class="red-text">&#x20B9; {{targetVsAchievement.primary_target }}</p>
+                    <span>Primary Target</span>
+                </div>
+            </div>
+           
+            <div class="taget-achievement" (click)="(targetVsAchievement.secondary_acheivement > 0) && (targetVsAchievement.secondary_target > 0) ?viewAchievement('secondary'): ''">
+                <div class="taget_vs_achievement">
+                    <p class="green-text">&#x20B9; {{targetVsAchievement.secondary_acheivement | number : '1.2-2'}}</p>
+                    <span>Secondary Achievement</span>
+                </div>
+                <div class="vs">
+                    V / S
+                </div>
+                <div class="taget_vs_achievement">
+                    <p class="red-text">&#x20B9; {{targetVsAchievement.secondary_target}}</p>
+                    <span>Secondary Target</span>
+                </div>
+            </div>
+           
+        </div>
+    </div> -->
+  <button *ngIf="this.team_count!=null" ion-button class="cs-btn">Waiting For The Approval</button>  
+
+    <div class="product-option pt5"*ngIf="this.team_count!=null">
+            
+    
+        
+        <div class="main-box" (click)="goToTeam()">
+            <div class="product-box">
+                <img src="assets/imgs/leads.svg">
+            </div>
+            <div class="heading">
+                <div class="count"><span>{{leaveany}}</span></div>
+                <h4>Leaves</h4>
+            </div>
+        </div>
+          <div class="main-box" (click)="goToTravel()">
+            <div class="product-box">
+                <img src="assets/imgs/travel.svg">
+            </div>
+            <div class="heading">
+                <div class="count"><span>{{Approval_array}}</span></div>
+                <h4>Travel Plan</h4>
+            </div>
+        </div>
+        <div class="main-box" (click)="goToExpense()">
+            <div class="product-box">
+                <img src="assets/imgs/expense.svg">
+            </div>
+            <div class="heading">
+                <div class="count"><span>{{expense}}</span></div>
+                <h4>Expense</h4>
+            </div>
+        </div>
+    </div> 
+     <!-- <div class="dash-tabs">
+        <ul>
+            <li (click)="goToTeam()">
+                <div class="d-img">
+                    <img src="assets/imgs/leads.svg">
+                </div>
+                Lead
+            </li>
+            <li (click)="goToTravel()">
+                <div class="d-img">
+                    <img src="assets/imgs/travel.svg">
+                </div>
+                Travel Plan
+            </li>
+            <li (click)="goToExpense()">
+                <div class="d-img">
+                    <img src="assets/imgs/expense.svg">
+                </div>
+                Expense
+            </li>
+        </ul>
+    </div> -->
+   
+    <div class="h50"></div>
+</ion-content>

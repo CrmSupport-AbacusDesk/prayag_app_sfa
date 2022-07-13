@@ -1,0 +1,105 @@
+<ion-header>
+    
+    <ion-navbar>
+        <ion-title>My Leads</ion-title>
+    </ion-navbar>    
+    <ion-toolbar>
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar (ngModelChange)="get_assign_dr(drid)" [(ngModel)]="filter.name" name="name" ></ion-searchbar>
+                <!-- <a class="date-pick">
+                    <label class="chedate">
+                        <input type="date" name="date"  [max]="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="get_assign_drsearch()" />
+                        <i class="material-icons">date_range</i>
+                    </label>
+                </a> -->
+            </div>
+        </div>
+    </ion-toolbar> 
+</ion-header>
+<div class="text-line" *ngIf="filter.date">
+    <div class="lf-text">
+        <p>Date</p>
+        <p>{{filter.date | date:'d MMM y'}}</p>
+    </div>
+    <div class="rf-text">
+        <i class="material-icons" (click)="filter.date='';get_assign_drsearch()">cancel</i>
+    </div>
+</div>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh"     refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    <div class="capsule-tabs">
+        <ul>
+            <li *ngFor="let row of count" [ngClass]="{'active' : row.id==filter.type_id}"  (click)="start=0;drid=row.id; get_assign_dr(row.id)">
+                <p>{{row.name}}<span>{{row.count}}</span></p>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="pd-left-right16">
+        <div class="list-box mt16" *ngFor="let data of dr_list">
+            <div class="upper" (click)="lead_detail(data.id)">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{data.date_created | date:'d MMM y'}}</p>
+                        <p>Date Created</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mid">
+                <div class="content-info" (click)="lead_detail(data.id)">
+                    <div class="left-info"*ngIf="data.type!=10" >
+                        <div class="circle" >{{data.company_name.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    <div class="left-info"*ngIf="data.type==10" >
+                        <div class="circle" >{{data.name.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    <div class="right-info">
+                        <!-- (Verified) -->
+                        <!-- *ngIf="data.dealer_verify!=0" -->
+                        <p *ngIf="data.type!=10">{{data.company_name.toUpperCase()}}</p>
+                        <!-- <p *ngIf="data.dealer_verify==0"> {{data.company_name.toUpperCase()}}</p> -->
+                        <p > {{data.name | titlecase}} ({{data.mobile}})</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{data.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            <div class="lower"  *ngIf="data.state  || data.district  || data.city  || data.area" (click)="lead_detail(data.id)">
+                <p>Address</p>
+                <p>{{data.address}} {{!data.area ? 'N/A' : data.area | titlecase}} {{!data.district ? '' : ', '+data.district | titlecase}} {{!data.state ? 'N/A' : data.state | titlecase}} </p>
+            </div>
+        </div>  
+    </div>
+    
+    <div class="nothing-here" *ngIf="load_data == 1">
+        
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/no_found.svg" alt="">
+                <p>Data not Available</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="h50"></div>
+
+    <ion-fab right bottom>
+        <button ion-fab color="danger" (click)="addLead()" ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+</ion-content>
+
+<!-- 
+
+<div class="cus-fab">
+    <button (click)="addLead()">
+        <i class="material-icons">add</i>
+    </button>
+</div> -->

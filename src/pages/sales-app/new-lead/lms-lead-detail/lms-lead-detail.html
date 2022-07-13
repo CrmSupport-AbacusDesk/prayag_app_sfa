@@ -1,0 +1,178 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Lead Detail</ion-title>
+        <ion-buttons end >
+            <button ion-button icon-only color="light" (click)="goOnTravelAdd()" >
+                <ion-icon name="md-create"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+   
+</ion-header>
+
+<ion-content>
+    <div class="pb30">
+        <div class="sticky-main">
+            <div class="pd-left-right16 af_bg">
+                <div class="list-box">
+                    <div class="upper">
+                        <div class="left-date">
+                            <div class="date-section">
+                                <p>{{lead_detail.date_created | date:'d MMM y'}}</p>
+                                <p>Date Created</p> 
+                            </div>
+                            <div class="date-section">
+                                <p>{{lead_detail.created_by_name}}</p>
+                                <p>Created by</p> 
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mid">
+                        <div class="content-info">
+                            <div class="left-info"> 
+                                <div class="circle">{{lead_detail.company_name | slice:0:1}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{lead_detail.company_name | titlecase}}</p>
+                                <p> {{!lead_detail.name ? 'N/A' : lead_detail.name | titlecase}} ( {{lead_detail.mobile}} )</p>
+                                <p *ngIf="lead_detail.email">{{lead_detail.email ? lead_detail.email : 'N/A'}}</p>
+                            </div>
+                        </div>
+                        <div class="tag-info">
+                            <a href="tel:{{lead_detail.mobile}}"><i class="material-icons">phone</i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="three_boxes"> 
+                        <!-- <div class="lower">
+                            <p>GST</p> 
+                            <p>{{lead_detail.gst ? lead_detail.gst : 'N/A'}}</p>
+                        </div>
+                        <div class="lower">
+                            <p>Lead Type</p>
+                            <p>{{lead_detail.lead_type}}</p>
+                        </div> -->
+                    </div>
+                    <div class="lower">
+                        <p>Address</p>
+                        <p>{{!lead_detail.state ? 'N/A' : lead_detail.state | titlecase}} {{!lead_detail.district ? '' : ', '+lead_detail.district | titlecase}} {{!lead_detail.city ? '' : ', '+lead_detail.city | titlecase}} {{lead_detail.pincode ? ' - '+lead_detail.pincode : ''}}</p>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        
+        
+        <div class="edit" *ngIf="contactPerson.length"> 
+            
+            <div class="cs-heading1">
+                <p>Contact Person List</p>
+            </div>
+            
+            <div class="list-box mt10" *ngFor="let row of contactPerson;let i=index">
+                <div class="mid mt0">
+                    <div class="content-info">
+                        <div class="right-info">
+                            <p>Name - {{row.contact_person}}</p>
+                            <p>Mobile - {{row.mobile_no}}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="three_boxes">
+                    
+                    <div *ngIf="row.email && row.email!=''" class="lower">
+                        <p>Email</p>
+                        <p>{{row.email && row.email!=''  ?row.email:'--'}}</p>
+                    </div>
+                    <div *ngIf="row.designation && row.designation!='' " class="lower">
+                        <p>Designation</p>
+                        <p>{{row.designation && row.designation!='' ?row.designation:'--'}}</p>
+                    </div>
+                    <div *ngIf="row.whatsapp_no && row.whatsapp_no!=''" class="lower">
+                        <p>WhatsApp No.</p>
+                        <p>{{row.whatsapp_no && row.whatsapp_no!='' ?row.whatsapp_no:'--'}}</p>
+                    </div>
+                    
+                </div>
+                
+                <div class="three_boxes">
+                    <div *ngIf="row.dob && row.dob != '0000-00-00'" class="lower">
+                        <p>Date of Birth</p>
+                        <p>{{row.dob && row.dob != '0000-00-00'?row.dob:'--'}}</p>
+                    </div>
+                    <div *ngIf="row.doa && row.doa != '0000-00-00'" class="lower">
+                        <p>Date of Anniversary</p>
+                        <p>{{row.doa && row.doa != '0000-00-00'?row.doa:'--'}}</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        
+        <div class="pd-left-right16">
+            <div class="forword-page flat-item">
+                
+                
+                
+                <a *ngIf="lead_detail.lat && lead_detail.lng" class="no-height" (click)="update_location(lead_detail.lat,lead_detail.lng,lead_detail.id,lead_detail.lead_type)">
+                    <p><i class="material-icons">location_on</i></p>
+                    <div class="info">
+                        Update Location
+                    </div>
+                </a>
+                
+                <a *ngIf="!lead_detail.lat && !lead_detail.lng" class="no-height" (click)="update_location(lead_detail.lat,lead_detail.lng,lead_detail.id,lead_detail.lead_type)">
+                    <p><i class="material-icons">location_on</i></p>
+                    <div class="info">
+                        Save Location
+                    </div>
+                </a>
+                
+                <!-- <a class="no-height" (click)="addContactPerson(lead_detail.id)">
+                    <p><span>{{lead_detail.contactPersonCount}}</span></p>
+                    <div class="info">
+                        Add Multiple Contacts
+                    </div>
+                </a> -->
+                
+                <a class="no-height" (click)="lead_activity(lead_detail.type,lead_detail.id,lead_detail.company_name)">
+                    <p><span>{{lead_detail.dr_activity}}</span></p>
+                    <div class="info">
+                        Activity
+                    </div>
+                </a>
+                
+                <a class="no-height" (click)="lead_followup(lead_detail.type,lead_detail.id,lead_detail.company_name)">
+                    <p><span>{{lead_detail.dr_followup}}</span></p>
+                    <div class="info">
+                        Follow Up
+                    </div>
+                </a>
+                
+                <!-- <a class="no-height" (click)="goToQuotation(lead_detail.type,lead_detail.id,lead_detail.company_name)">
+                    <p><span>{{lead_detail.quotation}}</span></p>
+                    <div class="info">
+                        Quotation
+                    </div>
+                </a> -->
+            </div>
+        </div>
+        
+        
+        <!-- <div class="upload-doc" *ngIf="lead_detail.visiting_card_image && lead_detail.visiting_card_image != null"> -->
+            <div class="upload-doc pd-left-right16">
+                <p class="">Upload Visiting Card</p>
+                <ul class="no-padding" >
+                    <li class="image-upload" (click)="this.captureMedia()" *ngIf="lead_detail.visiting_card_image && lead_detail.visiting_card_image != null" >
+                        <img src="{{lead_detail.visiting_card_image}}">
+                    </li>
+                    <li class="add-image" (click)="this.captureMedia()"*ngIf="!lead_detail.visiting_card_image || lead_detail.visiting_card_image == null" >
+                        <i class="material-icons">add</i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ion-content>

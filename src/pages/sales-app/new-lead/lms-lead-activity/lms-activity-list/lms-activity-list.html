@@ -1,0 +1,89 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Activity List</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    <div class="pd-left-right16 pt16">
+        <div class="list-box" *ngFor="let row of activity_list">
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{row.date_created | date:'d MMM y'}}</p>
+                        <p>Date Created</p> 
+                    </div>
+                    <div class="date-section">
+                        <p>{{row.created_by_name ? row.created_by_name : 'N/A'}}</p>
+                        <p>Created by</p> 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info" >
+                        <div class="circle" >{{row.dr_name.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    
+                    <div class="right-info">
+                        <p>{{row.dr_name.toUpperCase()  ? row.dr_name : 'N/A'}}</p>
+                        <p *ngIf="row.mobile">{{row.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{row.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            
+            <div class="three_boxes"> 
+                <div class="lower">
+                    <p>Activity Date</p>
+                    <p>{{row.activity_date}}</p>
+                </div>
+                <div class="lower">
+                    <p>Activity Type</p> 
+                    <p>{{row.activity_type}}</p>
+                </div>
+            </div>
+            
+            <div class="lower">
+                <p>Activity Remark</p>
+                <p>{{row.remark  ? row.remark : 'N/A'}}</p>
+            </div>
+        </div>  
+    </div>
+    
+    <div class="nothing-here" *ngIf="activity_list == 0">
+        
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/no_found.svg" alt="">
+                <p>Data not Available</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="h50"></div>
+
+    <ion-fab right bottom>
+        <button ion-fab color="danger" (click)="lead_activity_add(type,id,company_name)"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+
+</ion-content>
+
+
+<!-- 
+<ion-footer class="af-none">
+    <div class="cus-fab">
+        <button (click)="lead_activity_add(type,id,company_name)">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+</ion-footer> -->

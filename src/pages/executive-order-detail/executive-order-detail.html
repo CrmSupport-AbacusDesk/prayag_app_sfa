@@ -1,0 +1,245 @@
+
+
+
+
+
+<ion-header class="catalogue-header">
+    <ion-navbar>
+        <ion-title  *ngIf="userDetail.order_status=='Draft'" >Order Detail</ion-title>
+        <ion-title  *ngIf="userDetail.order_status!='Draft'" >{{userDetail.order_no}}</ion-title>
+      
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content  >
+    <div class="pd-left-right16 af_bg">
+        <ng-container *ngIf="userDetail.delivery_from!='KEI'" >
+            <div class="list-box mb0">
+
+                <ng-container >
+                    <div class="upper">
+                        <div class="left-date">
+                            <div class="date-section">
+                                <p >{{userDetail.order_creator | titlecase}}</p>
+                                <p>Created By</p>
+                            </div>
+                            <div class="date-section" >
+                                <p >{{userDetail.order_date_created | date:'d MMM y hh:mm a'}}</p>
+                                <p>Date Created</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mid ">
+                        <div class="content-info">
+                            <div class="left-info">
+                                <div class="circle">{{userDetail?.company_name?.substring(0,1).toUpperCase()}}</div>
+                            </div>
+                            <div class="right-info">
+                                <p>{{userDetail?.company_name?.toUpperCase()}}</p>
+                                <p> Name</p>
+                            </div>
+                        </div>
+                        <div class="tag-info" *ngIf="userDetail?.mobile">
+                            <a href="tel:{{userDetail?.mobile}}"><i class="material-icons">phone</i></a>
+                        </div>
+                    </div>
+                    <div class="three_boxes">
+                        <div class="lower" >
+                            <p>Contact Person</p>
+                            <p >{{userDetail?.name | titlecase}}</p>
+                        </div>
+                        <div class="lower" >
+                            <p>Contact No.</p>
+                            <p >{{userDetail?.mobile}}</p>
+                        </div>
+
+
+                    </div>
+
+                 
+
+                    <div class="lower" *ngIf="userDetail.district || userDetail.state || userDetail.pincode || userDetail.address">
+                        <p>Address</p>
+                        <p>{{userDetail.address | titlecase}} {{userDetail.district | titlecase}} {{userDetail.state | titlecase}} {{userDetail.pincode}}</p>
+                    </div>
+                </ng-container>
+
+
+
+            
+
+            </div>
+        </ng-container>
+
+        <div class="list-box mb0" *ngIf="userDetail.delivery_from=='KEI'">
+
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p >{{userDetail.order_creator | titlecase}}</p>
+                        <p>Created By</p>
+                    </div>
+                    <div class="date-section" >
+                        <p >{{userDetail.order_date_created | date:'d MMM y hh:mm a'}}</p>
+                        <p>Date Created</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mid ">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle">{{userDetail?.company_name?.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    <div class="right-info">
+                        <p>{{userDetail?.company_name?.toUpperCase()}}</p>
+                        <p> Name</p>
+                    </div>
+                </div>
+                <div class="tag-info" *ngIf="userDetail?.mobile">
+                    <a href="tel:{{userDetail?.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            <div class="three_boxes">
+                <div class="lower" >
+                    <p>Contact Person</p>
+                    <p >{{userDetail?.name | titlecase}}</p>
+                </div>
+                <div class="lower" >
+                    <p>Contact No.</p>
+                    <p >{{userDetail?.mobile}}</p>
+                </div>
+            </div>
+
+            
+
+            <div class="lower" *ngIf="userDetail.district || userDetail.state || userDetail.pincode || userDetail.address">
+                <p>Address</p>
+                <p>{{userDetail.address | titlecase}} {{userDetail.district | titlecase}} {{userDetail.state | titlecase}} {{userDetail.pincode}}</p>
+            </div>
+
+
+         
+
+        </div>
+
+    </div>
+
+
+    <div class="pl16 pr16" *ngIf="userDetail.delivery_from!='KEI'">
+        <div class="cs-heading1 pl0 pr0 mb10"  ><p>Distributor Information</p></div>
+       
+
+        <div class="list-box mb0">
+            <div class="mid mt0">
+                <div class="content-info">
+                    <div class="left-info">
+                        <!-- <div class="circle">{{userDetail.distributor_name?.substring(0,1).toUpperCase()}}</div> -->
+                    </div>
+                    <div class="right-info">
+                        <p>{{userDetail.distributor_name}}</p>
+                        <p>{{userDetail.name}} ({{userDetail.mobile}})</p>
+                    </div>
+                </div>
+                <div class="tag-info" *ngIf="userDetail.mobile">
+                    <a href="tel:{{userDetail.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pd-left-right16 mt16"  *ngIf=" today_date==orderDate1">
+        <button class="cs-button border-btn" (click)="more_item_executive(order_id)">ADD MORE ITEM </button>
+    </div>
+
+
+    <!-- <div class="pd-left-right16 dflex1 mt16" *ngIf="(userDetail.delivery_from != 'paraflex') && (userDetail.order_status == 'Partial Dispatch')">
+        <button class="cs-button border-btn" (click)="open_dispatch()">DISPATCH ITEM</button>
+    </div> -->
+
+
+    <div class="pd-left-right16 mt16">
+        <div class="clcsd_new ds-collapse" *ngFor="let order of orderitem;let i = index;">
+            <ul class="collapsible_new">
+                <!-- {{globalCollapsible}} -->
+                <li (click)="(order.edit_true == false ||order.edit_true1 == false|| globalCollapsible == true) ? '' : (openCollapse == order.id)?(openCollapse = 0):(openCollapse = order.id) " [ngClass]="{'active': openCollapse == order.id}">
+                    <div class="collapsible-header_new">
+                        <p>Product Details<strong> | </strong>{{order.product_name}}</p>
+                       
+                    </div>
+
+                    <div class="collapsible-body_new">
+                        <div class="common_form">
+                            <div class="box complete" >
+                                <div class="data-table padding10">
+                                    <table>
+                                        <tr >
+                                            <th>Qty</th>
+                                            <td>
+                                                <div class="edit-data" ngClass="{{order.edit_true ? '' : 'active' }}">
+                                                        <input type="number" string-to-number    [readonly]="order.edit_true"  name="qty" [(ngModel)]="order.qty" >
+                        
+                                                        <a class="edit-value edits" *ngIf="order.edit_true && today_date==orderDate1"(click)="edit_order(i,order.id,order.category,userDetail.dr_id,userDetail.type,order.cat_no)">
+                                                            <i class="material-icons create" >create</i>    
+                                                        </a>
+                        
+                                                        <a class="edit-value saves" *ngIf="!order.edit_true ">
+                                                        <i class="material-icons create" (click)="update_order1(i,order.order_id,order.id,false)">save</i>
+                                                    </a>
+                                                </div>
+                                              
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <th>Amount</th>
+                                            <td>
+                                                <div class="edit-data" ngClass="{{order.edit_true1 ? '' : 'active' }}">
+                                                    <input type="number" string-to-number    [readonly]="order.edit_true1"  name="amount" [(ngModel)]="order.amount" >
+                    
+                                                    <a class="edit-value edits" *ngIf="order.edit_true1 && today_date==orderDate1"(click)="edit_order1(i,order.id,order.amount,userDetail.dr_id,userDetail.type,order.cat_no)">
+                                                        <i class="material-icons create" >create</i>    
+                                                    </a>
+                    
+                                                    <a class="edit-value saves" *ngIf="!order.edit_true1">
+                                                    <i class="material-icons create" (click)="update_order1(i,order.order_id,order.id,false)">save</i>
+                                                </a>
+                                            </div>
+                                            </td>
+                                        </tr>
+                                      
+
+                                        <ng-container *ngIf=" today_date==orderDate1">
+                                            <tr  >
+                                                <th>Action</th>
+                                                <td><a class="del-btn" (click)="delete_item(i,order.order_id,order.id)"><i class="material-icons create" >delete_sweep</i>Delete</a></td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+
+   
+
+
+</ion-content>
+
+<div class="endcheck" *ngIf="(userDetail.order_status == 'Draft' || userDetail.order_status == 'Reject' || userDetail.order_status == 'Rejected')">
+    <a (click)="changeStatus()">Submit Order</a>
+</div>
+
+
+
+
+

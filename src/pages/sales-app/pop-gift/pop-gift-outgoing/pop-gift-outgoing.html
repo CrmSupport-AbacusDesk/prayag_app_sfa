@@ -1,0 +1,61 @@
+<!--
+  Generated template for the PopGiftOutgoingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>PoP & Gift Outgoing</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+</ion-content> -->
+
+  
+<ion-header>
+  <ion-navbar>
+      <ion-title> {{pop_gift_name |titlecase}} Outgoing History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="nothing-here" *ngIf="!pop_list.length && load_data == '1'">
+      <div class="outer">
+          <div class="innear">
+              <img src="assets/imgs/no_found.svg" alt="">
+              <p>Data not Available</p>
+          </div>
+      </div>
+  </div>
+  <div class="pd-left-right16">
+      <div class="list-box mt16" *ngFor="let list of pop_list; let i=index">
+          <div class="upper">
+              <div class="left-date">
+                  <div class="date-section">
+                      <p>{{list.date_created | date:'d MMM y'}}</p>
+                      <p>Date Created</p>
+                  </div>
+              </div>
+          </div>
+          <div class="mid">
+              <div class="content-info">
+                  <div class="left-info">
+                      <div class="circle">{{list.company_name.substring(0,1).toUpperCase()}}</div>
+                  </div>
+
+                  <div class="right-info">
+                      <p>{{list.company_name|titlecase}}({{list.type=='1'?'Distributor':list.type=='3'?"Dealer":list.type=='7'?"Direct Dealer":''}})</p>
+                      <p>Qty - {{list.qty}}</p>
+                  </div>
+              </div>
+          </div>
+          <div class="lower" *ngIf="list.delivery_note !=''">
+              <p>Delivery Note</p>
+              <p>{{list.delivery_note}}</p>
+          </div>
+      </div>
+  </div>
+</ion-content>

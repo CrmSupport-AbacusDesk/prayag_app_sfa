@@ -1,0 +1,263 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title *ngIf="attendencetype=='My'">My Attendence</ion-title>
+        <ion-title *ngIf="attendencetype!='My'"><h1 text-wrap>Team Attendence</h1></ion-title>
+        <ion-buttons end>
+            <!-- <input type="date" [max]="date" name="check_in_date" [(ngModel)]="search.attend_in_date" (ngModelChange)="getAttendanceData()">
+                <i class="material-icons">date_range</i> -->
+                <button *ngIf="teamCount!=null" ion-button icon-only (click)="presentPopover($event)">
+                    <ion-icon name="more"></ion-icon>
+                    <!-- <ion-icon name="ellipsis-vertical"></ion-icon> -->
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+        
+    
+</ion-header>
+
+
+
+
+
+
+
+<ion-content >
+    
+    <div class="fix-toolbar" *ngIf="attendencetype=='My'">
+        <div class="capsule-tabsnew">
+            <ul>
+                <li *ngFor="let row of month_array" [ngClass]="{'active' : row.month==current_month}"
+                    (click)="current_month=row.month;current_year=row.year; getAttendanceData()">{{row.month_name}}
+                    {{row.year}}</li>
+    
+            </ul>
+        </div>
+    
+        <div class="cs-top-list">
+            <div class="cs-top pb0">
+                <div class="list-content">
+                    <p>{{attendance_summery.total_working_days}}</p>
+                    <span>Working Days</span>
+                </div>
+                <div class="list-content">
+                    <p class="present">{{attendance_summery.present}}</p>
+                    <span>Present</span>
+                </div>
+                <div class="list-content">
+                    <p class="absent">{{attendance_summery.absent}}</p>
+                    <span>Absent</span>
+                </div>
+                <div class="list-content">
+                    <p class="leave"> {{attendance_summery.leave}}</p>
+                    <span>Leave</span>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div class="fix-toolbar" >
+        <ng-container *ngIf="attendencetype!='My'&&data.user">
+        <div class="capsule-tabsnew">
+            <ul>
+                <li *ngFor="let row of month_array" [ngClass]="{'active' : row.month==current_month}"
+                    (click)="current_month=row.month;current_year=row.year; getAttendanceData()">{{row.month_name}}
+                    {{row.year}}</li>
+    
+            </ul>
+        </div>
+    
+        <div class="cs-top-list">
+            <div class="cs-top pb0">
+                <div class="list-content">
+                    <p>{{attendance_summery.total_working_days}}</p>
+                    <span>Working Days</span>
+                </div>
+                <div class="list-content">
+                    <p class="present">{{attendance_summery.present}}</p>
+                    <span>Present</span>
+                </div>
+                <div class="list-content">
+                    <p class="absent">{{attendance_summery.absent}}</p>
+                    <span>Absent</span>
+                </div>
+                <div class="list-content">
+                    <p class="leave"> {{attendance_summery.leave}}</p>
+                    <span>Leave</span>
+                </div>
+            </div>
+    
+        </div>
+        </ng-container>
+        <ng-container  *ngIf="attendencetype!='My'">
+            <div class="edit" *ngIf="data3==true">
+                <ion-list>
+            
+                    <ion-item class="cs-normal-select mt15 mb0">
+                        <ion-label>Select User</ion-label>
+                        <ion-select placeholder="Select User" name="user" [(ngModel)]="data.user"
+                            (ngModelChange)="getAttendanceData()">
+                            <ion-option *ngFor="let row of user_list" value="{{row.id}}">{{row.name}}</ion-option>
+                        </ion-select>
+                    </ion-item>
+            
+                </ion-list>
+            </div>
+        </ng-container>
+    </div>
+    
+
+    <div class="pr16 pl16 mt16">
+    <ng-container *ngIf="attendencetype!='My'&&data3==false">
+        <div class="month-calander">
+            <button class="dates" (click)="changeDate('previous')"><i class="material-icons">keyboard_arrow_left</i></button>
+            <p>{{selected_date | date:'d MMM, y' }}</p>
+            <button class="dates" (click)="changeDate('next')"><i class="material-icons">keyboard_arrow_right</i></button>
+            <button class="months"(click)="test2()"><i class="material-icons">calendar_month</i></button>
+        </div>
+        
+        
+        <div class="box mt16">
+            <table>
+                <tr>
+                    <th>Sales User</th>
+                    <th class="w80">Punch In</th>
+                    <th class="w80">Punch Out</th>
+                    
+                </tr>
+                <tr *ngFor="let data of attendance_list1">
+                    
+                    <td class="w100">{{data.name}}</td>
+                    <td class="w80" *ngIf="data.start_time !='00:00:00'">{{data.start_time_withDate | date:'hh:mm a'}}</td>
+                    <td class="w80" *ngIf="data.start_time =='00:00:00'">--</td>
+                    
+                    
+                    <td class="w80" *ngIf="data.stop_time !='00:00:00'">{{data.stop_time_withDate | date:'hh:mm a'}}</td>
+                    <td class="w80" *ngIf="data.stop_time =='00:00:00'">--</td>
+                    
+                    
+                    
+                    
+                </tr>
+                
+            </table>
+        </div>
+    </ng-container>
+    
+    
+    
+    
+    <!-- <ion-refresher (ionRefresh)="getAttendanceData()">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher> -->
+    <ng-container *ngIf="attendencetype=='My'">
+        
+        
+        
+        <div class="collapse" *ngFor="let item of attendance_list;let idx = index;" [ngClass]="{'expand':item.collapse == true,'yellow':item.isOnLeave=='true' && item.start_time==null,'red':item.isHoliday=='false' && item.start_time==null && item.isOnLeave=='false','grey':item.isHoliday=='true'}">
+            <div class="collapse-head" (click)="item.start_time!=null?item.collapse=!item.collapse:''">
+                <div class="date-head">
+                    <p>{{item.day}}</p>
+                    <span>{{item.date | date:'d MMM y'}}</span>
+                </div>
+                <div class="info" *ngIf="item.work_type=='Working'">Working</div>
+                <div class="info" *ngIf="item.work_type=='Travel'">Travel</div>
+                <div class="date-head" *ngIf="item.isHoliday=='true' && item.holidayReason=='Sunday' && item.start_time==null">Weekly Off</div>
+                <div class="date-head" *ngIf="item.isHoliday=='true' && item.holidayReason!='Sunday' && item.start_time==null">Holiday</div>
+                <div class="date-head" *ngIf="item.isHoliday=='false' && item.start_time==null && item.isOnLeave=='false'">Absent</div>
+                <div class="date-head" *ngIf="item.isOnLeave=='true' && item.start_time==null">Leave</div>
+            </div>
+            
+            <div class="collapse-body padding0">
+                <div class="padding10">
+                    <div class="two-col">
+                        <div class="col-box">
+                            <p>Punch in</p>
+                            <span *ngIf="item.start_time =='00:00:00'">--</span>
+                            <span *ngIf="item.start_time !='00:00:00'">{{item.start_time_withDate | date:'hh:mm a'}}</span>
+                        </div>
+                        <div class="col-box">
+                            <p>Punch out</p>
+                            <span *ngIf="item.stop_time =='00:00:00'">--</span>
+                            <span *ngIf="item.stop_time !='00:00:00'">{{item.stop_time_withDate | date:'hh:mm a'}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="two-col">
+                        <div class="col-box">
+                            <p>Work Hours</p>
+                            <span>{{item.working_hrs}} Hours</span>
+                        </div>
+                        <div class="col-box">
+                            <p>Total Travel</p>
+                            <span>{{item.km_per_day}} KM</span>
+                        </div>
+                    </div>
+                    <div class="two-col">
+                        <div class="col-box">
+                            <p>Expenses</p>
+                            <span>&#8377;{{item.Expense}} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </ng-container>
+    <ng-container *ngIf="attendencetype!='My'">
+        <ng-container *ngIf="data.user">
+            <div  class="collapse" *ngFor="let item of attendance_list;let idx = index;" [ngClass]="{'expand':item.collapse == true,'yellow':item.isOnLeave=='true' && item.start_time==null,'red':item.isHoliday=='false' && item.start_time==null && item.isOnLeave=='false','grey':item.isHoliday=='true'}">
+                <div class="collapse-head" (click)="item.start_time!=null?item.collapse=!item.collapse:''">
+                    <div class="date-head">
+                        <p>{{item.day}}</p>
+                        <span>{{item.date | date:'d MMM y'}}</span>
+                    </div>
+                    <div class="info" *ngIf="item.work_type=='Working'">Working</div>
+                    <div class="info" *ngIf="item.work_type=='Travel'">Travel</div>
+                    <div class="date-head" *ngIf="item.isHoliday=='true' && item.holidayReason=='Sunday' && item.start_time==null">Weekly Off</div>
+                    <div class="date-head" *ngIf="item.isHoliday=='true' && item.holidayReason!='Sunday' && item.start_time==null">Holiday</div>
+                    <div class="date-head" *ngIf="item.isHoliday=='false' && item.start_time==null && item.isOnLeave=='false'">Absent</div>
+                    <div class="date-head" *ngIf="item.isOnLeave=='true' && item.start_time==null">Leave</div>
+                </div>
+                
+                <div class="collapse-body padding0">
+                    <div class="padding10">
+                        <div class="two-col">
+                            <div class="col-box">
+                                <p>Punch in</p>
+                                <span *ngIf="item.start_time =='00:00:00'">--</span>
+                                <span *ngIf="item.start_time !='00:00:00'">{{item.start_time_withDate | date:'hh:mm a'}}</span>
+                            </div>
+                            <div class="col-box">
+                                <p>Punch out</p>
+                                <span *ngIf="item.stop_time =='00:00:00'">--</span>
+                                <span *ngIf="item.stop_time !='00:00:00'">{{item.stop_time_withDate | date:'hh:mm a'}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="two-col">
+                            <div class="col-box">
+                                <p>Work Hours</p>
+                                <span>{{item.working_hrs}} Hours</span>
+                            </div>
+                            <div class="col-box">
+                                <p>Total Travel</p>
+                                <span>{{item.km_per_day}} KM</span>
+                            </div>
+                        </div>
+                        <div class="two-col">
+                            <div class="col-box">
+                                <p>Expenses</p>
+                                <span>&#8377;{{item.Expense}} </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </ng-container>
+        
+    </ng-container>
+    </div>
+</ion-content>

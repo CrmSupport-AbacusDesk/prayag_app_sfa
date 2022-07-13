@@ -1,0 +1,325 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Event</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
+
+
+<!-- <ion-infinite-scroll threshold="100px"(ionInfinite)="onGetComplaintListHandler(false, $event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll> -->
+
+
+
+
+
+
+<ion-content>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh"  refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    
+    <div class="capsule-tabs">
+        
+        <ul>
+            
+            <li (click)="tabActive('pending')"  *ngFor="let count of data.all_cont;" [ngClass]="{'active' : tabActiveType['pending'] == true}">
+                <p>Pending<span *ngIf="count.pend_cnt">{{count.pend_cnt}}</span><span *ngIf="!count.pend_cnt">0</span></p>
+            </li>
+            
+            <li (click)="tabActive('approved')"  *ngFor="let count of data.all_cont;" [ngClass]="{'active' : tabActiveType['approved'] == true}">
+                <p>Approved<span *ngIf="count.approved_cnt">{{count.approved_cnt}}</span><span *ngIf="!count.approved_cnt">0</span></p>
+            </li>
+            
+            <li (click)="tabActive('rejected')"  *ngFor="let count of data.all_cont;" [ngClass]="{'active' : tabActiveType['rejected'] == true}">
+                <p>Rejected<span *ngIf="count.reject_cnt">{{count.reject_cnt}}</span><span *ngIf="!count.reject_cnt">0</span></p>
+            </li>
+            
+            <li (click)="tabActive('completed')"  *ngFor="let count of data.all_cont;" [ngClass]="{'active' : tabActiveType['completed'] == true}">
+                <p>Completed<span *ngIf="count.completed_cnt">{{count.completed_cnt}}</span><span *ngIf="!count.completed_cnt">0</span></p>
+            </li>
+        </ul>
+    </div>
+    
+    
+    <!-- <button type="button" (click)="loadData()">bbb</button> -->
+    
+    
+    <div class="pd-left-right16" *ngIf="tabActiveType['pending']">
+        
+        <div class="list-box mt16" *ngFor="let row of data.result;">
+            
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{row.date_created | date:'dd-MMM-yyyy hh:mm aa'}}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{row.date_of_meeting | date:'dd-MMM-yyyy'}}</p>
+                        <p>Meeting Date</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{row.total_member}}</p>
+                        <p>Members</p>
+                    </div>
+                </div>
+                <div class="right-date">
+                    <div class="tag-info pr10">
+                        <button><i class="material-icons red-clr" (click)="listdelete(row.id)">delete_sweep</i></button>
+                        <!-- delete_meeting -->
+                    </div>
+                </div>
+            </div>
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle">{{row.name | slice:0:1}}</div>
+                    </div>
+                    
+                    <div class="right-info">
+                        <p>{{row.company_name | titlecase}}</p>
+                        <p>{{row.name | titlecase}}</p>
+                        <p>{{row.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{9876543210}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            
+            <div class="three_boxes">
+                <div class="lower">
+                    <p>Last Update On</p>
+                    <p>{{row.date_updated | date:'dd-MMM-yyyy hh:mm aa'}}</p> 
+                </div>
+                <div class="lower w150">
+                    <p>Budget</p>
+                    <p>{{row.total_budget}}</p>
+                </div>
+                <div class="lower w150">
+                    <p>Days</p>
+                    <p>{{row.day_diff}}</p>
+                </div>
+            </div>
+            <div class="lower">
+                <p>Description</p>
+                <p >{{row.description| titlecase}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pd-left-right16" *ngIf="tabActiveType['approved']">
+        <div class="list-box mt16"  *ngFor="let approve of data.result;" (click)="contractorMeetDetail(approve.id)">
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{approve.date_created | date:'dd-MMM-yyyy hh:mm aa'}}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{approve.date_of_meeting | date:'dd-MMM-yyyy'}}</p>
+                        <p>Meeting Date</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{approve.total_member}}</p>
+                        <p>Members</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle">{{approve.name | slice:0:1}}</div>
+                    </div>
+                    
+                    <div class="right-info">
+                        <p>{{approve.company_name | titlecase}}</p>
+                        <p> {{approve.name | titlecase }} </p>
+                        <p>{{approve.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{9876543210}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            <div class="three_boxes">
+                <div class="lower">
+                    <p>Last Update On</p>
+                    <p>{{approve.date_updated | date:'dd-MMM-yyyy hh:mm aa'}}</p>
+                </div>
+                
+                <div class="lower w150">
+                    <p>Budget</p>
+                    <p>{{approve.total_budget}}</p>
+                </div>
+                <div class="lower w150">
+                    <p>Days</p>
+                    <p>{{approve.day_diff}}</p>
+                </div>
+            </div>
+            <div class="lower">
+                <p>Description</p>
+                <p class="two-line-ellipse">{{approve.description| titlecase}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pd-left-right16" *ngIf="tabActiveType['rejected']">
+        <div class="list-box mt16" *ngFor="let rej of data.result;" >
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{rej.date_created | date:'dd-MMM-yyyy hh:mm aa' }}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{rej.date_of_meeting | date:'dd-MMM-yyyy'}}</p>
+                        <p>Meeting Date</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{rej.total_member}}</p>
+                        <p>Members</p>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle">{{rej.name | slice:0:1}}</div>
+                    </div>      
+                    <div class="right-info">
+                        <p>{{rej.company_name | titlecase}} </p>
+                        <p>{{ rej.name| titlecase }} </p>
+                        <p>{{rej.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{9876543210}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            
+            <div class="three_boxes">
+                <div class="lower">
+                    <p>Last Update On</p>
+                    <p>{{rej.date_updated | date:'dd-MMM-yyyy hh:mm aa'}}</p>
+                </div>
+                <div class="lower w150">
+                    <p>Budget</p>
+                    <p>{{rej.total_budget}}</p>
+                </div>
+                <div class="lower w150">
+                    <p>Days</p>
+                    <p>{{rej.day_diff}}</p>
+                </div>
+            </div>
+            
+            <div class="lower">
+                <p>Description</p>
+                <p class="two-line-ellipse">{{rej.description| titlecase}}</p>
+            </div>
+            <div class="lower">
+                <p>Reason</p>
+                <p>{{rej.remarks| titlecase}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pd-left-right16" *ngIf="tabActiveType['completed']">
+        <div class="list-box mt16" *ngFor="let complete of data.result;"  (click)="contractorMeetDetail(complete.id)" >
+            <div class="upper">
+                <div class="left-date">
+                    <div class="date-section">
+                        <p>{{complete.date_created | date:'dd-MMM-yyyy hh:mm aa' }}</p>
+                        <p>Date Created</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{complete.date_of_meeting | date:'dd-MMM-yyyy'}}</p>
+                        <p>Meeting Date</p>
+                    </div>
+                    <div class="date-section">
+                        <p>{{complete.total_member}}</p>
+                        <p>Members</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mid">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle">{{complete.name | slice:0:1}}</div>
+                    </div>
+                    <div class="right-info">
+                        <p>{{complete.company_name | titlecase}}</p>
+                        <p>{{complete.name | titlecase}}</p>
+                        <p>{{complete.mobile}}</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{9876543210}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            
+            <div class="three_boxes">
+                <div class="lower">
+                    <p>Last Update On</p>
+                    <p>{{complete.date_updated | date:'dd-MMM-yyyy hh:mm aa'}}</p>
+                </div>
+                
+                <div class="lower w150">
+                    <p>Budget</p>
+                    <p>{{complete.total_budget}}</p>
+                </div>
+                
+                <div class="lower w150">
+                    <p>Days</p>
+                    <p>{{complete.day_diff}}</p>
+                </div>
+            </div>
+            
+            <div class="lower">
+                <p>Description</p>
+                <p >{{complete.description| titlecase}}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nothing-here" *ngIf="data && data.result && data.result.length==0">
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/no_found.svg" alt="">
+                <p>Data not Available</p>
+            </div>
+        </div>
+    </div>
+    
+    <ion-fab right bottom>
+        <button ion-fab color="danger" (click)="contractorMeetAdd()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+
+    
+</ion-content>
+
+
+<!-- <ion-footer class="af-none">
+    
+    <div class="cus-fab">
+        <button (click)="contractorMeetAdd()">
+            <i class="material-icons">add</i>
+        </button>
+    </div>
+    
+</ion-footer> -->

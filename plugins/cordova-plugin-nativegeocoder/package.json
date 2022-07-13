@@ -1,0 +1,57 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-nativegeocoder@2.0.5",
+      "D:\\KEI\\KEI APP"
+    ]
+  ],
+  "_from": "cordova-plugin-nativegeocoder@2.0.5",
+  "_id": "cordova-plugin-nativegeocoder@2.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-+nv7wtvf/Zy/lD3ZxEuRjNzpvSpRX9WUrK0sjg6QsB+L51nbRUna2CusaWBM7R9ZZk51akcv//F2vCewF3dc7Q==",
+  "_location": "/cordova-plugin-nativegeocoder",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-nativegeocoder@2.0.5",
+    "name": "cordova-plugin-nativegeocoder",
+    "escapedName": "cordova-plugin-nativegeocoder",
+    "rawSpec": "2.0.5",
+    "saveSpec": null,
+    "fetchSpec": "2.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/cordova-plugin-nativegeocoder/-/cordova-plugin-nativegeocoder-2.0.5.tgz",
+  "_spec": "2.0.5",
+  "_where": "D:\\KEI\\KEI APP",
+  "author": {
+    "name": "Sebastian Baar"
+  },
+  "bugs": {
+    "url": "https://github.com/sebastianbaar/cordova-plugin-nativegeocoder/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-nativegeocoder",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "description": "Cordova plugin for native forward and reverse geocoding",
+  "homepage": "https://github.com/sebastianbaar/cordova-plugin-nativegeocoder#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-nativegeocoder",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianbaar/cordova-plugin-nativegeocoder.git"
+  },
+  "version": "2.0.5"
+}

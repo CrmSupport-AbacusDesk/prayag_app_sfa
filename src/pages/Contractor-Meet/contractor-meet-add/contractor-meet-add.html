@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Add Event</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <div class="edit">
+        <ion-list>
+            <ion-item class="cs-normal-select mt16" >
+                <ion-label >Select Type <strong>*</strong></ion-label>
+                <ion-select [(ngModel)]="data.dr_type" required (ngModelChange)="get_network_list(data.dr_type)">
+                    <ion-option value="1">Distributor </ion-option>
+                    <ion-option value="7">Direct Dealers</ion-option>
+                    <ion-option value="3">Retailer</ion-option>
+                    <ion-option value="9">Project</ion-option>
+                    <ion-option value="5">End User</ion-option>
+                    <ion-option value="6">Others</ion-option>
+                    <ion-option value="11">Electrician</ion-option>
+                    <ion-option value="12">Sub-dealer</ion-option>
+
+                    <ion-option value="13">Private Contractor</ion-option>
+                    <ion-option value="14">Government Contractor</ion-option>
+                    <ion-option value="15">Builder</ion-option>
+                    <ion-option value="16">Architect</ion-option>
+                 
+                </ion-select>
+            </ion-item>
+            <!-- <ion-item class="cs-select mt16" >
+                <ionic-selectable
+                item-content 
+                [(ngModel)]="data.dealer_id"
+                [items]="dealer_list"
+                itemValueField="id"
+                name="company_name"
+                value="company_name"
+                itemTextField="company_name"
+                [canSearch]="true"
+                #selectComponent (ngModelChange)="get_dealers(data.id)">
+            </ionic-selectable> 
+        </ion-item>	-->	
+        <ion-item class="cs-normal-select" >
+            <ion-label>Select Company Name <strong>*</strong></ion-label>
+            <ion-select [(ngModel)]="data.dealer_id" required>
+                <ion-option *ngFor="let list of drList" [value]="list.id">{{list.company_name}}</ion-option>
+            </ion-select>
+        </ion-item>
+            <ion-item >
+                <ion-label floating><span>Date of Meeting</span></ion-label>
+                <ion-datetime display-format="MMM DD, YYYY" placeholder="Select Date" min={{today_date}} max={{max_date}} type="text" name="date_of_meeting" #date_of_meeting="ngModel" [(ngModel)]="data.date_of_meeting" class="calander" required ></ion-datetime>
+              </ion-item>
+            <ion-item>
+                <ion-label floating><span>Total Member</span></ion-label>
+                <ion-input type="tel" name="total_member" #total_member="ngModel" [(ngModel)]="data.total_member" required min="0" maxlength="10000" minlength="1" (keypress)="number_checker($event)" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating><span>Total Budget</span></ion-label>
+                <ion-input type="tel" name="total_budget" #budget="ngModel" [(ngModel)]="data.total_budget" required min="0" maxlength="10000" minlength="1" (keypress)="number_checker($event)" ></ion-input>
+            </ion-item>
+      <ion-item class="cs-textarea1">
+        <ion-label floating><span>Description</span></ion-label>
+        <ion-textarea placeholder="Enter Description" name="description" #description="ngModel" [(ngModel)]="data.description"></ion-textarea>
+      </ion-item>
+        </ion-list>
+        <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" (click)="addContractorMeeting()" [disabled]=" !data.dealer_id || !data.total_budget ||  !data.total_member || !data.date_of_meeting || !data.description">SAVE</button>
+    </div>
+</ion-content>

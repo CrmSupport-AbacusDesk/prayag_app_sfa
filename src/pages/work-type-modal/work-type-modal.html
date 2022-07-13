@@ -1,0 +1,123 @@
+
+
+<ion-content  class="transprant-bg">
+    <div class="work-modal">
+        <div class="work-modal-bg">
+            <div *ngIf="type == 'start'">
+                
+                <div class="head">
+                    <h2>SELECT ATTENDENCE TYPE</h2>
+                    <a class="close" (click)="close()"><i class="material-icons">close</i></a>
+                </div>
+                
+                <ion-list class="list-box" radio-group name="work_type" [(ngModel)]="data.work_type" #work_type="ngModel" (ngModelChange)="(data.select_vehicle ='');(data.start_reading='');(image_data=[]); " required>
+                    <ion-item *ngFor="let row of working_type">
+                        <ion-label>{{row.work_type}}</ion-label>
+                        <ion-radio [value]="row.work_type" ></ion-radio>
+                    </ion-item>
+                </ion-list>
+                
+                <div class="edit m0" *ngIf="data.work_type == 'Working In Territory'">
+                    <!-- <ion-list class="list-box" radio-group name="select_vehicle" [(ngModel)]="data.select_vehicle"  #select_vehicle="ngModel"  (ngModelChange)="(data.start_reading='');(image_data=[]); " required>
+                        <ion-item>
+                            <ion-label>Car</ion-label>
+                            <ion-radio value="Car"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Bike</ion-label>
+                            <ion-radio value="Bike"></ion-radio>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Public Transport</ion-label>
+                            <ion-radio value="Public Transport"></ion-radio>
+                        </ion-item>
+                    </ion-list> -->
+                    
+                    <!-- <ion-list *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
+                        <ion-item>
+                            <ion-label floating><span>Meter Reading</span></ion-label>
+                            <ion-input type="tel" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="meterReading" placeholder="Enter Reading" #meterReading="ngModel" [(ngModel)]="data.start_reading" required ></ion-input>
+                        </ion-item>
+                    </ion-list> -->
+                    
+                    <!-- <div class="upload-doc" *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
+                        <p class="">Upload Meter Reading</p>
+                        <ul class="no-padding">
+                            
+                            <li class="image-upload" *ngFor="let pic of image_data;let i = index;">
+                                <img src="{{pic}}">
+                                <button class="del"><i class="material-icons" (click)="remove_image(i)">delete_sweep</i></button>
+                            </li>
+                            
+                            <li class="add-image" (click)="this.takePhoto()" *ngIf="image_data.length==0">
+                                <i class="material-icons">add</i>
+                            </li>
+                        </ul>
+                    </div> -->
+                    
+                </div>
+                
+                
+                <!-- <div class="edit m0" *ngIf="data.work_type == 'Working Out Of Territory'">
+                    <ion-list>
+                        <ion-item class="cs-textarea1">
+                            <ion-label floating><span>Description</span></ion-label>
+                            <ion-textarea name="description" placeholder="Enter Description" [(ngModel)]="data.travel_place"></ion-textarea>
+                        </ion-item>
+                    </ion-list>
+                </div> -->
+                
+              
+                <div class="text-right" >
+                   
+                    <!-- <button class="mt32 wp100" *ngIf="(data.select_vehicle!='Car' && data.select_vehicle!='Bike') &&data.work_type == 'Working In Territory'" ion-button color="secondary" [disabled]="!(data.work_type&&data.select_vehicle) " (click)=" submit() ">Submit</button> -->
+                    <!-- <button class="mt32 wp100" *ngIf="(data.select_vehicle=='Car' || data.select_vehicle=='Bike') &&data.work_type == 'Working In Territory'" ion-button color="secondary" [disabled]="!(data.work_type && data.start_reading&&data.select_vehicle) " (click)=" submit() ">Submit</button> -->
+                    <button class="mt32 wp100" ion-button color="secondary" (click)=" submit() ">Submit</button>
+                    
+                </div>
+            </div>
+            
+            
+            <div *ngIf="type == 'stop'">
+                <div class="head">
+                    <h2>SELECT ATTENDENCE TYPE</h2>
+                    <a class="close" (click)="close()"><i class="material-icons">close</i></a>
+                </div>
+                <!-- <div class="edit m0" *ngIf="workType == 'Working In Territory'">
+                    <ion-list>
+                        <ion-item>
+                            <ion-label floating><span>Meter Reading</span></ion-label>
+                            <ion-input type="tel" (ngModelChange)="check_reading()"  name="meterReading" placeholder="Enter Reading" #meterReading="ngModel" [(ngModel)]="data.stop_reading" required ></ion-input>
+                            
+                        </ion-item>
+                    </ion-list>                    
+                    <div class="upload-doc">
+                        <p class="">Upload Meter Reading</p>
+                        <ul class="no-padding">
+                            
+                            <li class="image-upload" *ngFor="let pic of image_data;let i = index;">
+                                <img src="{{pic}}">
+                                <button class="del"><i class="material-icons" (click)="remove_image(i)">delete_sweep</i></button>
+                            </li>
+                            
+                            <li class="add-image" (click)="this.takePhoto()" *ngIf="image_data.length==0">
+                                <i class="material-icons">add</i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>         -->
+                <div class="text-right mt32" >
+                 
+                  
+                    <button class="mt32 wp100"  ion-button color="secondary"  (click)=" save() ">Submit</button>
+                      
+                        
+                    <!-- <button *ngIf="flag" ion-button color="secondary" [disabled]="!(data.stop_reading && (conInt(data.stop_reading) > conInt(strtReadin)))" (click)="save()">Save</button> -->
+
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+</ion-content>

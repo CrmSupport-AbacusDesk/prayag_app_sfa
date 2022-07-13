@@ -1,0 +1,377 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Event Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <div class="pd-left-right16 mt16">
+    <div class="list-box" *ngFor="let row of data.result;">
+      <div class="upper">
+        <div class="left-date">
+          <div class="date-section">
+            <p>{{row.date_of_meeting}}</p>
+            <p>Meeting Date</p>
+          </div>
+          <div class="date-section">
+            <p>{{row.total_member}}</p>
+            <p>Total Member</p>
+          </div>
+        </div>
+        <div class="right-date">
+          <button class="green-btn">
+            <p>{{row.status}}</p>
+          </button>
+        </div>
+      </div>
+      <div class="mid">
+        <div class="content-info">
+          <div class="left-info">
+            <div class="circle">{{row.name | slice:0:1}}</div>
+          </div>
+          
+          <div class="right-info">
+            <p>{{row.company_name| titlecase}}</p>
+            <p> {{row.name| titlecase}}</p>
+            <p>{{row.mobile}}</p>
+          </div>
+          
+        </div>
+        <div class="tag-info">
+          <a href="tel:{{row.mobile}}"><i class="material-icons">phone</i></a>
+          
+        </div>
+      </div>
+      <div class="lower">
+        <p>Description</p>
+        <p>{{row.description| titlecase}}</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ---------------------- -->
+  <div style="padding: 0px 16px 16px 16px;" *ngIf="complete_C_M_status == 'completed'">
+    <div class="time_show amount-listing">
+        <p>Budget</p>
+        <p>₹ {{complete_C_M_totalbudget | number:'1.2-2'}} </p>
+    </div>
+    <div class="time_show amount-listing">
+        <p>Expense</p>
+        <p>₹ {{complete_C_M_expense | number:'1.2-2'}} </p>
+    </div>
+</div> 
+
+
+
+
+
+<!-- participents -->
+  <div class="csn-heading neww" *ngIf="complete_C_M_status == 'completed'">
+    <p>Participents Details</p>
+</div>
+
+<div *ngIf="complete_C_M_status == 'completed'">
+  <ng-container>       
+    <div class="pl16 pr16" >
+        <div class="list-box mt16" *ngFor="let participants of complete_C_M_participants" >   
+            <div class="mid mt0">
+                <div class="content-info">
+                    <div class="left-info">
+                        <div class="circle" >{{participants.participent_name.substring(0,1).toUpperCase()}}</div>
+                    </div>
+                    <div class="right-info">
+                        <p>{{participants.participent_name.toUpperCase()}}</p>
+                        <p> Mobile No. : {{participants.participent_mobile  ? participants.participent_mobile : '--'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+</ng-container>
+</div>
+
+
+  <!-- images -->
+  <div *ngIf="complete_C_M_status == 'completed'">
+    <div class="upload-doc">
+      <p class="">Meeting Images</p>
+      <ul class="no-padding">
+        <li class="image-upload" *ngFor="let val of complete_C_M_images">
+          <img src="{{constant.img_url+val.img_path}}">
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+  
+  
+  
+  <div>
+    <form #f2="ngForm" *ngIf="prodstatus == 'approved' ">
+      <div class="cs-heading1 pt0">
+        <p>ADD Expense</p>
+      </div>
+      
+      <div class="edit">
+        <ion-list>
+          <ion-item [ngClass]="{'cs-error': f2.submitted && meet_expense?.invalid}">
+            <ion-input type="tel" name="meet_expense" placeholder="Rs......" #meet_expense="ngModel"
+            [(ngModel)]="data2.expense" [ngClass]="{'is-invalid': f2.submitted && meet_expense?.invalid}"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57" required></ion-input>
+          </ion-item>
+          
+          <p *ngIf="f2.submitted && meet_expense?.invalid && !data1.meet_expense" class="error-line">Expense Is
+            Required!</p>
+          </ion-list>
+        </div>
+        
+        
+        
+        
+        <form #f="ngForm" *ngIf="prodstatus == 'approved' ">
+          
+          <div class="cs-heading1 pt0">
+            <p>ADD Participants</p>
+          </div>
+          
+          <div class="edit">
+            <ion-list>
+              <ion-item [ngClass]="{'cs-error': f.submitted && participent_name?.invalid}">
+                <ion-label floating><span>Name</span></ion-label>
+                <ion-input type="text" name="participent_name" #participent_name="ngModel"
+                [(ngModel)]="data1.participent_name" [ngClass]="{'is-invalid':f.submitted && participent_name?.invalid}"
+                (keypress)="name($event)" required></ion-input>
+              </ion-item>
+              
+              
+              <p *ngIf="f.submitted && participent_name?.invalid && data1.participent_name" class="error-line"> Name Is
+                Invalid!</p>
+                <p *ngIf="f.submitted && participent_name?.invalid && !data1.participent_name" class="error-line"> Name Is
+                  Required!</p>
+                  
+                  <ion-item [ngClass]="{'cs-error': f.submitted && participent_mobile?.invalid}">
+                    <ion-label floating><span>Mobile No.</span></ion-label>
+                    <ion-input type="tel" name="participent_mobile" #participent_mobile="ngModel"
+                    [(ngModel)]="data1.participent_mobile"
+                    [ngClass]="{'is-invalid': f.submitted && participent_mobile?.invalid}" maxlength="10" minlength="10"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57" required></ion-input>
+                  </ion-item>
+                  
+                  <p *ngIf="f.submitted && participent_mobile?.invalid && data1.participent_mobile" class="error-line">Mobile
+                    Number Is Invalid!</p>
+                    <p *ngIf="f.submitted && participent_mobile?.invalid && !data1.participent_mobile" class="error-line">Mobile
+                      Number Is Required!</p>
+                    </ion-list>
+                  </div>
+                  <div class="pd-left-right16 dflex flex-end mt16">
+                    <button type="button" class="cs-button border-btn  w100"
+                    (click)="addParticipants()">ADD TO LIST</button>
+                    
+                    <!-- [disabled]="!data1.participent_name || !data1.participent_mobile" -->
+                    <!-- (click)="addParticipants()"  -->
+                  </div>
+                  
+                </form>
+                
+                
+                <div class="dflex">
+                  <div class="upload-plus-icon" *ngIf="prodstatus == 'approved'">
+                    <h1 class="img-heading">UPLOAD IMAGE</h1>
+                    <ul>
+                      <!-- <li >
+                        <div class="label">
+                          <input type="file" multiple (change)="fileChange($event)" placeholder="Upload file" accept=".png,.jpg,.jpeg">
+                          <i  class="material-icons">add</i>
+                        </div>
+                      </li>     -->
+                      <li class="wp100">
+                        <div class="label">
+                          <button type="button" (click)="presentActionSheet()">
+                            <i class="material-icons">collections</i>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div class="upload-plus-icon" *ngIf="prodstatus == 'approved'">
+                    <h1 class="img-heading">UPLOAD VIDEO</h1>
+                    <ul>
+                      <li class="upload-video wp100">
+                        <label>
+                          <input type="file" multiple (change)="fileChange($event)" placeholder="Upload file" accept="video/*"
+                          style="display: none;">
+                          <i class="material-icons">videocam</i>
+                        </label>
+                      </li>
+                      <!-- <li>
+                        
+                        <div class="label">
+                          <button type="button" (click)="presentActionvideo()">
+                            <img class="plus-btn" src="assets/imgs/plus.svg">
+                          </button>
+                        </div>
+                        
+                      </li> -->
+                    </ul>
+                  </div>
+                  
+                  <!-- <div class="upload-doc" *ngIf="prodstatus == 'approved'">
+                    <p class="">UPLOAD LETTER HEAD</p>
+                    <ul class="no-padding">
+                      
+                      <li class="image-upload" *ngFor="let pic of LHimage_data;let i = index;">
+                        <img src="{{pic}}">
+                        <button class="del"><i class="material-icons" (click)="remove_image(i)">delete_sweep</i></button>
+                      </li>
+                      
+                      
+                      <button type="button" (click)="take_L_H_Photo()"  *ngIf="LHimage_data.length<2">
+                        <i class="material-icons">collections</i>
+                      </button>
+                    </ul>
+                  </div> -->
+                  
+                </div>
+                
+                
+                
+                <!-- upload letter head  -->
+                
+                <!-- <div class="dflex">
+                  <div class="upload-plus-icon" *ngIf="prodstatus == 'approved'">
+                    <h1 class="img-heading">UPLOAD LETTER HEAD</h1>
+                    <ul class="no-padding">
+                      
+                      <li class="image-upload" *ngFor="let pic of LHimage_data;let i = index;">
+                        <img src="{{pic}}">
+                        <button class="del"><i class="material-icons" (click)="remove_image(i)">delete_sweep</i></button>
+                      </li>
+                      <li class="wp100">
+                        <div class="label">
+                          <button type="button" (click)="take_L_H_Photo()" *ngIf="LHimage_data.length<2">
+                            <i class="material-icons">collections</i>
+                          </button>
+                        </div>
+                      </li>
+                      
+                    </ul>
+                  </div>
+                </div> -->
+                
+                <!-- upload letter head End  -->
+                
+                
+                
+                <div class="round-tab mt16">
+                  <ul>
+                    <li [ngClass]="TabType==1 ?'active': '' " (click)="TabType=1">
+                      <a>Participants Member</a>
+                    </li>
+                    <li [ngClass]="TabType==2 ? 'active': '' " (click)="TabType=2">
+                      <a>Gallery</a>
+                    </li>
+                  </ul>
+                </div>
+                
+                
+                <!-- Participants tab start -->
+                <div class="product-item-table mt0 padding16" *ngIf="TabType==1">
+                  <table>
+                    <tr>
+                      <th>Name</th>
+                      <th class="w90">Mobile No</th>
+                      <th class="w50" *ngIf="prodstatus == 'approved' "></th>
+                    </tr>
+                    <tr *ngFor="let row of data.participants;">
+                      <td>{{row.participent_name| titlecase }}</td>
+                      <td>{{row.participent_mobile}}
+                        <div class="right-date">
+                        </div>
+                      </td>
+                      <td *ngIf="prodstatus == 'approved' ">
+                        <div class="tag-info pr10">
+                          <button class="transparent"><i class="material-icons red-clr font21"
+                            (click)="deletePerson(row.id)">delete_sweep</i></button>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <!-- Participants tab End -->
+                  
+                  <!-- Gallery Tab Start -->
+                  <div class="upload-plus-icon" *ngIf="TabType==2">
+                    <ul>
+                      <li *ngFor="let photo of data.meetingImages">
+                        <div class="label">
+                          <button type="button">
+                            <img *ngIf="photo.type=='image'" class="up-img" (click)="openDocument(img_url+photo.img_path)"
+                            [src]="img_url+photo.img_path">
+                            <a *ngIf="photo.type=='video'" (click)="openDocument(img_url+photo.img_path)">
+                              
+                              <video *ngIf="photo.type=='video'" id="player" width="100%" height="100%">
+                                <source target="_blank" [src]="img_url+photo.img_path" type="video/mp4">
+                                </video>
+                                
+                              </a>
+                            </button>
+                            <a class="im-delete">
+                              <i class="material-icons" *ngIf="prodstatus == 'approved' "
+                              (click)="delete_image(photo.id)">delete_sweep</i>
+                            </a>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- Gallery Tab End -->
+                    
+                    <!--
+                      <div class="pd-left-right16 mt16">
+                        
+                        
+                        <div class="list-box" *ngFor="let row of data.participants;">
+                          <div class="mid mt0">
+                            <div class="content-info">
+                              <div class="left-info">
+                                
+                                
+                                <div class="circle">{{row.participent_name | slice:0:1}}</div>
+                                
+                              </div>
+                              
+                              <div class="right-info">
+                                <p>{{row.participent_name| titlecase }}</p>
+                                <p>{{row.participent_mobile}}</p>
+                              </div>
+                            </div>
+                            <div class="tag-info">
+                              <a href="tel:{{row.participent_mobile}}"><i class="material-icons">phone</i></a>
+                              <i (click)="deletePerson(row.id)" class="material-icons im-delete">delete_sweep</i>
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                      
+                      <!-- <ion-grid>
+                        <ion-row>
+                          <ion-col col-6 *ngFor="let photo of data.meetingImages">
+                            <img [src]="img_url+photo.img_path" />
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid> -->
+                      <div class="align-btn padding16" *ngFor="let row of data.result;">
+                        <button class="cs-button" *ngIf="row.status=='approved' && data3!=0"
+                        [disabled]="!f2.form.valid && !data2.expense " (click)="submitbutton(row.id)">Click Here For complete</button>
+                        
+                      </div>
+                    </form>
+                    
+                  </div>
+                  <div class="h80"></div>
+                  
+                </ion-content>

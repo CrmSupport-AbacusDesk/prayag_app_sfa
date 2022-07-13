@@ -1,0 +1,151 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Followup List</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentPopover($event)">
+                <ion-icon name="more"></ion-icon>
+                <!-- <ion-icon name="ellipsis-vertical"></ion-icon> -->
+            </button>
+            </ion-buttons>
+    </ion-navbar>
+    
+    <!-- <ion-toolbar>
+        <div class="filter-search">
+            <ion-searchbar name="search" ></ion-searchbar>
+            <a class="date-pick">
+                <label class="chedate">
+                    <input type="date"  />
+                    <i class="material-icons">date_range</i>
+                </label>
+            </a>
+        </div>
+    </ion-toolbar>   -->
+    <ion-toolbar>
+        <div class="filter-search">
+            <ion-searchbar type='text' name="master" [(ngModel)]="filter.master" (ngModelChange)="getFollowup()"></ion-searchbar>
+            <a class="date-pick">
+                <label class="chedate">
+                    <input type="date" name="date" [(ngModel)]="filter.date" (ngModelChange)="getFollowup()" />
+                    <i class="material-icons">date_range</i>
+                </label>
+            </a>
+        </div>
+    </ion-toolbar> 
+
+    <div class="text-line" *ngIf="filter.date">
+        <div class="lf-text">
+            <p>Date</p>
+            <p>{{filter.date | date:'d MMM y'}}</p>
+        </div>
+        <div class="rf-text">
+            <i class="material-icons" (click)="filter.date='';getFollowup()">cancel</i>
+        </div>
+    </div>
+
+</ion-header>
+
+<ion-content >
+    <!-- <div class="capsule-tabs">
+        <ul>
+            <li class="active">
+                <p>Pending
+                    <span>10</span>
+                </p>
+            </li>
+            <li>
+                <p>Upcoming  <span>10</span></p>
+            </li>
+            <li>
+                <p>Compelete <span>10</span></p>
+            </li>
+        </ul>
+    </div> -->
+    <div class="capsule-tabs">
+        <ul>
+          <li [ngClass]="{'active' : filter.status=='pending'}" (click)="filter.date='';start=0;filter.status='pending' ;getFollowup()">
+            <p>Pending<span>{{pending_count}}</span></p>
+          </li>
+          <li [ngClass]="{'active' : filter.status=='upcoming'}" (click)="filter.date='';start=0;filter.status='upcoming' ;getFollowup()">
+            <p>Upcoming<span>{{upcoming_count}}</span></p>
+          </li>
+          <li [ngClass]="{'active' : filter.status=='done'}" (click)="filter.date='';start=0;filter.status='done' ;getFollowup()">
+            <p>Complete<span>{{complete_count}}</span></p>
+          </li>
+        </ul>
+      </div>
+    <!-- <div class="month-calander">
+        <button (click)="previousDate()"><i class="material-icons">keyboard_arrow_left</i></button>
+        <p>{{selected_date | date:'d MMM, y' }}</p>
+        <button (click)="nextDate()"><i class="material-icons">keyboard_arrow_right</i></button>
+    </div> -->
+    
+    <div class="nothing-here" *ngIf="!followupList.length && requestSend">
+        <div class="outer">
+            <div class="innear">
+                <img src="assets/imgs/no_found.svg" alt="">
+                <p>No Follow Up</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="pd-left-right16" *ngIf="followupList.length">
+        <div class="list-box mt16" *ngFor="let data of followupList" (click)=" go_to_followup_detail(data.id)">
+            
+            <div class="top-items">
+                <div class="content-info" >
+                    <ul class="top-filter">
+                        <li>
+                            <span>{{data.date_created | date:'d MMM y hh:mm a '}} </span>
+                            <p>Date Created</p>
+                        </li>
+                        <li>
+                            <span>{{data.next_follow_date | date:'d MMM y '}}</span>
+                            <p>Follow Up Date</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tag-info">
+                    <button *ngIf="selected_date >= today_date" (click)="deleteFollowUp(data.id)"><i class="material-icons">delete_sweep</i></button>
+                </div>
+            </div>
+            <div class="mid mt0">
+                <div class="content-info" >
+                    <!-- <div class="left-info" >
+                        <div class="circle">{{data.company_name.substring(0,1).toUpperCase()}}</div>
+                    </div> -->
+                    
+                    <div class="right-info">
+                        <!-- <p>Created By<span>{{data.name}}</span> </p> -->
+                        <span style="font-size: 10px;">Created By :</span>
+                        <p style="font-size: 9px;">{{data.name}}</p>
+
+                        
+                        <p>{{data.company_name}}<span *ngIf="data.lead_type=='Lead'">(lead)</span></p>
+                        <p >{{data.dr_name | titlecase}} ({{data.mobile}})</p>
+                    </div>
+                </div>
+                <div class="tag-info">
+                    <a href="tel:{{data.mobile}}"><i class="material-icons">phone</i></a>
+                </div>
+            </div>
+            <div class="lower" *ngIf="data.description">
+                <p>Description {{data.description.length}}</p>
+                <p [ngClass]="see_more_button == data.id?'':'two-line-ellipse'">{{data.description}} </p>
+                <div  class="see_more">
+                    <p id="foo" (click)="(see_more_button == data.id)?(see_more_button = 0):(see_more_button = data.id)">{{see_more_button == 0 ? 'See More' : 'See Less' }}</p>
+                    <!-- <p (click)="see_more_button = !see_more_button">See More</p> -->
+                    
+                </div>
+            </div>
+
+
+            
+          
+        </div>  
+    </div>
+    
+    <ion-fab right bottom >
+        <button ion-fab color="danger" (click)="goOnAddFollowup()" ><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+    
+</ion-content>

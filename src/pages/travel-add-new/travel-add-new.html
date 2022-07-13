@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Travel Plan</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  
+  <div class="top-list" >
+    <div class="top pb0">
+      <div class="content">
+        <span>Date</span>
+        <p>{{tarvel_date | date:'EEEE, MMMM d, y'}}</p>
+      </div>
+      <div class="content">
+        <span>Visit Plan</span>
+        <p >{{planList.length}}</p>
+      </div>
+      <div class="content" *ngIf="status">
+        <span>Status</span>
+        <p class="status {{status}}">{{status}}</p>
+      </div>
+    </div>
+    
+  </div>
+ 
+    <div class="list-content" *ngFor="let row of planList" >
+      <div class="upper-content" >
+        <div class="left-info" >
+          <div class="circle">{{row.beat_code[0]}}</div>
+        </div>
+        <div class="right-info">
+          <h2>Beat Code </h2>
+          <span>{{row.beat_code}}</span>
+        </div>
+      </div>
+      <div class="address">
+        <p> <span>City</span>{{row.city}} - {{row.travel_type}}</p>
+      </div>
+      <div class="address">
+        <p><span>Remark</span>{{row.status_remark}}</p>
+      </div>
+      <div class="lower-content pr0">
+        <!-- <div class="visit">
+          Last Visit :
+          <p> 20 <span> Days Ago</span></p>
+        </div> -->
+        <div class="button-right">
+          <!-- <button class="add-btn"><i class="material-icons ">add</i>ADD TO LIST</button> -->
+          <button class="add-btn" (click)="removePlanList(row.id)"><i class="material-icons ">delete</i>REMOVE FROM LIST</button>
+        </div>
+      </div>
+     
+    </div>
+
+    <div class="nothing-here" *ngIf="!planList.length">
+      <div class="outer">
+        <div class="innear">
+          <img src="assets/imgs/no_found.svg" alt="">
+          <p>No Visit List</p>
+        </div>
+      </div>
+    </div>
+    
+  </ion-content>
+  

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add visiting Card</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  
+  <form #f="ngForm" (ngSubmit)="f.form.valid">
+    <div class="edit">
+      
+      
+      <ion-list>
+        <ion-item  class="cs-normal-select mt16" >
+          <ion-label>Select type</ion-label>
+          <ion-select  placeholder="Select Type" name="type"  [(ngModel)]="data.type" (ngModelChange)="get_network_list(data.type)">
+            <ion-option value="1">Distributor/Dealer</ion-option>
+            <ion-option value="7">Direct Dealer</ion-option>
+            <ion-option value="3">Retailer</ion-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-list *ngIf="data.type">            
+           <ion-item class="cs-normal-select mt15">
+            <ion-label *ngIf="data.type == '1'">Distributor/Dealer</ion-label>
+            <ion-label *ngIf="data.type == '3'">Retailer</ion-label>
+            <ion-label *ngIf="data.type == '7'">Direct Dealer</ion-label>
+            <ion-select  name="create_card_user_id" [(ngModel)]="data.create_card_user_id">
+              <ion-option *ngFor="let item of distributor_network_list.distributor.distributor;" value="{{item.id}}">{{item.company_name }} </ion-option>             
+            </ion-select>
+            
+          </ion-item>
+        </ion-list>
+        
+        <!-- <ion-item [ngClass]="{'cs-error': f.submitted && total_cards?.invalid}">
+          <ion-label floating><span>Total Card</span></ion-label>
+          <ion-input type="tel" name="total_cards" #total_cards="ngModel" [(ngModel)]="data.total_cards" [ngClass]="{'is-invalid':f.submitted && total_cards?.invalid}"  required min="0" maxlength="15" minlength="1" (keypress)="totalcards($event)" ></ion-input>
+        </ion-item>
+        
+        <p  *ngIf="f.submitted && total_cards?.invalid && data.total_cards" class="error-line"> Total Cards  Is Invalid!</p>
+        <p  *ngIf="f.submitted && total_cards?.invalid && !data.total_cards" class="error-line"> Total Cards Is Required!</p> -->
+        
+        <ion-item class="cs-textarea1" >
+          <ion-label floating><span>Description</span></ion-label>
+          <ion-textarea placeholder="Enter Description" name="description" #description="ngModel" [(ngModel)]="data.description"></ion-textarea>
+        </ion-item>
+      </ion-list>
+      
+      <button ion-button block class="h40 green-color mt15" style="letter-spacing: 1px;" [disabled]="!data.description || !data.create_card_user_id " (click)="addVisitingCardRequest()"    >SAVE</button>
+      
+    </div>
+  </form>
+</ion-content>

@@ -1,0 +1,64 @@
+<ion-header class="main-header remove">
+    <ion-navbar>
+        <ion-title>Product Detail</ion-title>
+        <ion-buttons end>
+            <button ion-button class="top-cart-btn" *ngIf="cart_array?.length" (click)="toGoOrderPage()">
+                <span class="counter">{{cart_array.length}}</span>
+                <i class="material-icons">shopping_cart</i>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+    
+</ion-header>
+
+<ion-content padding>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh"  refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="cs-slider slide-details">
+        <ion-slides pager class="flat-img">
+                        <!-- <ion-slides pager class="flat-img" (ionSlideDidChange)="test()">
+                autoplay=3000 -->
+            <!-- <ion-slide *ngFor="let data of prod_detail"> -->
+                <!-- <div class="fix-ht">
+                    <img [src]="constant.rootUrl2+'uploads/Products/'+data.image" alt="slide2">
+                </div> -->
+                <div class="information-card" >
+                    <h2>Product information</h2>
+                    <table *ngFor= "let row2 of prod_detail">
+                        <tr>
+                            <th>Name</th>
+                            <td>{{row2.product_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Product Code</th>
+                            <td>{{row2.product_code && row2.product_code != '' ? row2.product_code : '--'}}</td>
+                        </tr>
+                        <tr>
+                            <th>HSN Code</th>
+                            <td>{{row2.hsn && row2.hsn!=''? row2.hsn : '--'}}</td>
+                        </tr>
+                        <tr>
+                            <th >Description</th>
+                            <td>{{row2.description?row2.description:'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td>&#x20B9; {{row2.rate}}</td>
+                        </tr>
+                     
+                        <tr>
+                            <th>Gst</th>
+                            <td>{{row2.gst}}</td>
+                        </tr> 
+                         
+                        
+                    </table>
+                </div>
+          
+        </ion-slides>
+    </div>
+    
+</ion-content>

@@ -1,0 +1,115 @@
+<ion-header class="main-header">
+	<ion-navbar>
+		<ion-title> Profile </ion-title>
+		<div class="header-icons" >
+			<button ion-button class="cs-hdr-icons mr16"  (click)="logout()">
+				<i class="material-icons">power_settings_new</i>
+			</button>
+		</div>
+	</ion-navbar>
+</ion-header>
+
+<ion-content >
+	<div class="profile">
+		<div class="profile-detail">
+			<div class="profile-pic">
+				<!-- <img src="assets/imgs/man.svg" *ngIf="karigar_detail.profile ==''"> -->
+				<img [src]="karigar_detail.profile" (click) = "viewProfiePic()" >
+				<!-- <img src="assets/imgs/profile.png"> -->
+				<a><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a>
+			</div>
+			
+			<div class="name">
+				<p>{{karigar_detail.first_name |titlecase}} </p>
+				<a>
+					<i class="material-icons Verified ">check_circle </i>
+					Active
+				</a>
+			</div>
+			
+			<!-- <div class="edit-profile pencil-btn" (click)="editProfilePage()">
+				<button><i class="material-icons">edit</i></button>
+			</div> -->
+			<div class="rating-area mt16 new-cl">
+				
+				<div class="ratings">
+					<h3>Name</h3>
+					<p>{{karigar_detail.name ? karigar_detail.name : 'N/A'}}</p>
+				</div>
+				<div class="ratings">
+					<h3>Designation</h3>
+					<p>{{karigar_detail.designation ? karigar_detail.designation : 'N/A'}}</p>
+				</div>
+				<div class="ratings">
+					<h3>Email</h3>
+					<p>{{karigar_detail.email ? karigar_detail.email : 'N/A'}}</p>
+				</div>
+				<div class="ratings">
+					<h3>Mobile no</h3>
+					<p>+91 {{karigar_detail.contact_01 ? karigar_detail.contact_01 : 'N/A'}}</p>
+				</div>
+				<div class="ratings">
+					<h3>Working State</h3>
+					<p>{{karigar_detail.state_name ? karigar_detail.state_name : 'N/A'}}</p>
+				</div>
+				<div class="ratings">
+					<h3>Employee Code</h3>
+					<p>{{karigar_detail.employee_id ? karigar_detail.employee_id : 'N/A'}}</p>
+				</div>
+				
+				<div class="ratings">
+					<h5>Reporting Manager</h5>
+					<p>{{karigar_detail.reporting_manager ? karigar_detail.reporting_manager : 'N/A' |titlecase}}</p>
+				</div>
+
+				<div class="ratings">
+					<h5>Address</h5>
+					<p>{{karigar_detail.street ? karigar_detail.street : 'N/A' |titlecase}}</p>
+				</div>
+				
+				<div class="ratings">
+					<h3>City</h3>
+					<p>{{karigar_detail.city ? karigar_detail.city : 'N/A' |titlecase}} </p>
+				</div>
+				
+				<div class="ratings">
+					<h3>District</h3>
+					<p> {{karigar_detail.district_name ? karigar_detail.district_name : 'N/A' |titlecase}}</p>
+				</div>
+				
+				<div class="ratings">
+					<h3>State</h3>
+					<p> {{karigar_detail.state_name ? karigar_detail.state_name : 'N/A' |titlecase}}</p>
+				</div>
+				
+				<div class="ratings">
+					<h3>Pincode</h3>
+					<p> {{karigar_detail.pincode ? karigar_detail.pincode : 'N/A'}}</p>
+				</div>
+				
+			</div>
+		</div>
+		
+		<!-- <div class="point-loc remove-pointlo">
+			<div class="point-add" *ngIf="karigar_detail.cust_geo_address">
+				<p>Geo Location</p>
+				<textarea [(ngModel)]="karigar_detail.cust_geo_address" readonly></textarea>
+			</div>
+			
+			<div class="enquiry-btn loction-btn mt16 mb16">
+				<button ion-button color="danger" class="green-color h35" (click)="pointLocation()">
+					<p>{{karigar_detail.cust_geo_address?'Update location':'Add location' }}</p>
+				</button>
+			</div>
+		</div> -->
+		
+	</div>
+	
+	
+	<!-- <div class="ponit-location" (click)='pointLocation()'>
+		<a><i class="material-icons">room</i></a>
+	</div> -->
+	
+	
+	
+</ion-content>

@@ -1,0 +1,60 @@
+{
+  "_args": [
+    [
+      "cordova-plugin-gpsmockchecker@1.0.5",
+      "D:\\KEI\\KEI APP"
+    ]
+  ],
+  "_from": "cordova-plugin-gpsmockchecker@1.0.5",
+  "_id": "cordova-plugin-gpsmockchecker@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-d9GdMsras6kfUpgmEspL0/zcdEW7W9rXHG0wFfrui7FEyLwt9ha7KTINoQr63DV1I1Kr+cOUHTWjLivTupKu/A==",
+  "_location": "/cordova-plugin-gpsmockchecker",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-gpsmockchecker@1.0.5",
+    "name": "cordova-plugin-gpsmockchecker",
+    "escapedName": "cordova-plugin-gpsmockchecker",
+    "rawSpec": "1.0.5",
+    "saveSpec": null,
+    "fetchSpec": "1.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmmirror.com/cordova-plugin-gpsmockchecker/-/cordova-plugin-gpsmockchecker-1.0.5.tgz",
+  "_spec": "1.0.5",
+  "_where": "D:\\KEI\\KEI APP",
+  "author": {
+    "name": "Sunflower Energias SL"
+  },
+  "bugs": {
+    "url": "https://github.com/sunflowerenergias/cordova-plugin-gpsmockchecker/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-gpsmockchecker",
+    "platforms": []
+  },
+  "description": "This is a cordova plugin to avoid mock locations.",
+  "homepage": "https://github.com/sunflowerenergias/cordova-plugin-gpsmockchecker#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova plugin",
+    "cordova gps",
+    "mock",
+    "location",
+    "checker",
+    "mock-location",
+    "mock gps"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-gpsmockchecker",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sunflowerenergias/cordova-plugin-gpsmockchecker.git"
+  },
+  "version": "1.0.5"
+}

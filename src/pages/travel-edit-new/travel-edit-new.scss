@@ -1,0 +1,92 @@
+page-travel-edit-new {
+    
+    .radio-tab{
+        
+        border: 1px solid #ccc;
+        padding: 5px;
+        
+        ion-list{
+            display: flex;
+            align-items: center;
+            border: 1px solid #7bc5f9;
+            overflow: hidden;
+            border-radius: 6px;
+            
+            ion-item{
+                
+                &.item-block{
+                    min-height: 30px !important;
+                }
+                
+                ion-label{
+                    margin: 0px !important;
+                    font-size: 13px;
+                    text-align: center;
+                    color: #55a9e4;
+                    
+                }
+                ion-radio{
+                    margin: 0px !important;
+                    
+                    .radio-icon{
+                        visibility: hidden !important;
+                    }
+                }
+
+                &.item-radio-checked{
+                    background: #55a9e4 !important;
+                    ion-label{
+                        color: #fff !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .collapse-body{
+        margin: 0px -16px;
+        
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            box-sizing: border-box;
+            table-layout: fixed;
+            
+            
+            tr{
+                
+                th{
+                    background: #efefef;
+                    font-weight: 600;
+                    text-align: left;
+                }
+                
+                td, th{
+                    font-size: 12px;
+                    padding: 5px;
+                    border: 1px solid #ccc;
+
+                    i{
+                        font-size: 20px;
+                        color: #ff0000;
+                    }
+                    
+
+                    &:first-child{
+                        border-left: 0px;
+                    }
+                    &:last-child{
+                        border-right: 0px;
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    .capitalize{
+        text-transform: capitalize;
+        font-size: 12px;
+    }
+    
+}
