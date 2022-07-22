@@ -37,7 +37,7 @@
                 <p *ngIf="user_data.mobile">+91 {{user_data.mobile}}</p>
             </div>
             <div class="srt_button">
-                <button ion-button class="str" *ngIf="(last_attendence_data.start_time == '') && (last_attendence_data.stop_time == '' )" (click)="presentAlert1()">
+                <button ion-button class="str" *ngIf="(last_attendence_data.start_time == '') && (last_attendence_data.stop_time == '' )" (click)="openModal('start')">
                     <div class="cs-left">
                         <div class="icon"><img src="assets/imgs/wrk_time-start.svg" alt=""></div>
                         <div class="timeclass">
@@ -47,7 +47,7 @@
                             <!-- <p><span>00 : 00</span> <span>{{start_attend_time}}</span></p> -->
                         </div>
                     </div>
-                    <div class="cs-right"(click)="presentAlert1()">
+                    <div class="cs-right">
                         <div class="lb">Start Work Time</div>
                     </div>
                 </button>
@@ -71,7 +71,7 @@
 
         <div class="main-box" (click)="goToTravel()">
             <div class="product-box"style="background-color:blue">
-                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p> 
             </div>
             <div class="heading">
                 <img style="max-width:25%"src="assets/imgs/travel.png">
@@ -81,7 +81,7 @@
 
         <div class="main-box" (click)="goToExpense()">
             <div class="product-box"style="background-color:red">
-                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+                 <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p> 
             </div>
             <div class="heading">
                 <img style="max-width:25%"src="assets/imgs/expense.png">
@@ -92,16 +92,16 @@
 
         <div class="main-box" (click)="goToTeam()">
             <div class="product-box"style="background-color:#ffbf00">
-                <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p>
+                 <p style="font-size:50px;color:white;text-justify: center;">{{total_dealer.total_dealer}}</p> 
             </div>
             <div class="heading">
                 <img style="max-width:25%"src="assets/imgs/leave.png">
 
                 <h4>Leaves</h4>
             </div>
-        </div>
+        </div> -->
       
-    </div>
+    <!-- </div>
       <div class="target-column">
         <div class="target-column-grid" >
             <div class="taget-achievement"   >
@@ -122,9 +122,9 @@
             </div>
            
            
-        </div>
-    </div>
-    <div class="target-column">
+        </div> 
+    </div> 
+     <div class="target-column">
         <div class="target-column-grid" >
             <div class="taget-achievement"  (click)="(targetVsAchievement.p_acheivement > 0) && (targetVsAchievement.primary_target > 0) ? viewAchievement('primary'):''"  >
            

@@ -45,18 +45,11 @@ export class SelectRegistrationTypePage {
         goToRegisterPage()
         {
             console.log(this.data);
-            if(this.data.registerType == 'Employee' || this.data.registerType == 'DrLogin') 
+            if(this.data.registerType == 'Employee' || this.data.registerType == 'DrLogin' || this.data.registerType == 'Dealer') 
             {
                 this.navCtrl.push(LoginPage,{'registerType':this.data.registerType});
             } 
-            else if(this.data.registerType == 'registration')
-            {
-                this.navCtrl.push(RegistrationPage);
-            }
-            else 
-            {
-                this.navCtrl.push(MobileLoginPage,{'registerType':this.data.registerType});
-            }
+           
             
         }
 

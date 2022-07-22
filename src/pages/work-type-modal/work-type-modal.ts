@@ -115,7 +115,6 @@ export class WorkTypeModalPage {
     start_attend() {
       console.log(this.data);
       this.serve.show_loading();
-      
       this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
         () => {
           

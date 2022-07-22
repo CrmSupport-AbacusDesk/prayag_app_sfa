@@ -17,8 +17,8 @@
                     </ion-item>
                 </ion-list>
                 
-                <div class="edit m0" *ngIf="data.work_type == 'Working In Territory'">
-                    <!-- <ion-list class="list-box" radio-group name="select_vehicle" [(ngModel)]="data.select_vehicle"  #select_vehicle="ngModel"  (ngModelChange)="(data.start_reading='');(image_data=[]); " required>
+                <div class="edit m0" *ngIf="data.work_type == 'Working'">
+                    <ion-list class="list-box" radio-group name="select_vehicle" [(ngModel)]="data.select_vehicle"  #select_vehicle="ngModel"  (ngModelChange)="(data.start_reading='');(image_data=[]); " required>
                         <ion-item>
                             <ion-label>Car</ion-label>
                             <ion-radio value="Car"></ion-radio>
@@ -31,16 +31,16 @@
                             <ion-label>Public Transport</ion-label>
                             <ion-radio value="Public Transport"></ion-radio>
                         </ion-item>
-                    </ion-list> -->
+                    </ion-list> 
                     
-                    <!-- <ion-list *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
+                    <ion-list *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
                         <ion-item>
                             <ion-label floating><span>Meter Reading</span></ion-label>
                             <ion-input type="tel" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="meterReading" placeholder="Enter Reading" #meterReading="ngModel" [(ngModel)]="data.start_reading" required ></ion-input>
                         </ion-item>
-                    </ion-list> -->
+                    </ion-list> 
                     
-                    <!-- <div class="upload-doc" *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
+                     <div class="upload-doc" *ngIf="data.select_vehicle=='Car' || data.select_vehicle=='Bike'">
                         <p class="">Upload Meter Reading</p>
                         <ul class="no-padding">
                             
@@ -53,19 +53,19 @@
                                 <i class="material-icons">add</i>
                             </li>
                         </ul>
-                    </div> -->
+                    </div> 
                     
                 </div>
                 
                 
-                <!-- <div class="edit m0" *ngIf="data.work_type == 'Working Out Of Territory'">
+                 <div class="edit m0" *ngIf="data.work_type == 'Travel'">
                     <ion-list>
                         <ion-item class="cs-textarea1">
                             <ion-label floating><span>Description</span></ion-label>
                             <ion-textarea name="description" placeholder="Enter Description" [(ngModel)]="data.travel_place"></ion-textarea>
                         </ion-item>
                     </ion-list>
-                </div> -->
+                </div>
                 
               
                 <div class="text-right" >
@@ -83,7 +83,7 @@
                     <h2>SELECT ATTENDENCE TYPE</h2>
                     <a class="close" (click)="close()"><i class="material-icons">close</i></a>
                 </div>
-                <!-- <div class="edit m0" *ngIf="workType == 'Working In Territory'">
+                <div class="edit m0" *ngIf="workType == 'Working'">
                     <ion-list>
                         <ion-item>
                             <ion-label floating><span>Meter Reading</span></ion-label>
@@ -105,7 +105,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>         -->
+                </div>         
                 <div class="text-right mt32" >
                  
                   

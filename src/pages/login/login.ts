@@ -50,7 +50,7 @@ export class LoginPage {
                 return;
             }
             
-            if(this.form.phone == '7983938203' || this.form.phone == '9899394985'|| this.form.phone =='9000000000' || this.form.phone =='9667686942' )
+            if(this.form.phone == '7983938203' || this.form.phone == '9899394985'|| this.form.phone =='8799730083' || this.form.phone =='9667686942' )
             {
                 this.form.otp = 123456;
             }
@@ -61,8 +61,8 @@ export class LoginPage {
 
             }
             
-            // this.form.registerType = this.registerType;
-            this.form.registerType = "Employee";
+            this.form.registerType = this.registerType;
+            // this.form.registerType = "Employee";
 
             console.log(this.form);
             
@@ -131,7 +131,7 @@ export class LoginPage {
     }
     bck()
     {
-        this.navCtrl.push(CatalogueHomePage);
+        this.navCtrl.push(SelectRegistrationTypePage);
     }
     showError()
     {

@@ -426,6 +426,8 @@ export class DashboardPage {
             
         }
         
+     
+
         presentAlert() {
             
             this.platform.ready().then(() => {
@@ -535,7 +537,7 @@ export class DashboardPage {
                     {
                         let alert = this.alertCtrl.create({
                             title: 'Stop Time',
-                            message: 'Do you want to start work time?',
+                            message: 'Do you want to start work time?.,..,,..',
                             cssClass: 'alert-modal',
                             buttons: [
                                 {
