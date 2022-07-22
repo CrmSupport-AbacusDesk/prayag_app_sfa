@@ -7,9 +7,9 @@
         <form [formGroup]="validations_form" (ngSubmit)="form.phone?.length == 10 ? login_submit() : ''" autocomplete="off">
             <div class="cs-form">
                 <div class="heading">
-                    <!-- <div class="login-back">
+                    <div class="login-back">
                         <button (click)="bck()"><ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon></button>
-                    </div> -->
+                    </div>
                     <p class="pl50">LOGIN</p>
                 </div>
                 <ion-list class="mb40">

@@ -2,7 +2,7 @@
   "_args": [
     [
       "mx.ferreyra.callnumber@0.0.2",
-      "E:\\Paraflex-App"
+      "C:\\Users\\Admin\\prayag_app_sfa"
     ]
   ],
   "_from": "mx.ferreyra.callnumber@0.0.2",
@@ -24,9 +24,9 @@
   "_requiredBy": [
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/mx.ferreyra.callnumber/-/mx.ferreyra.callnumber-0.0.2.tgz",
+  "_resolved": "https://registry.npmmirror.com/mx.ferreyra.callnumber/-/mx.ferreyra.callnumber-0.0.2.tgz",
   "_spec": "0.0.2",
-  "_where": "E:\\Paraflex-App",
+  "_where": "C:\\Users\\Admin\\prayag_app_sfa",
   "author": "",
   "bugs": {
     "url": "https://github.com/Rohfosho/CordovaCallNumberPlugin/issues"
